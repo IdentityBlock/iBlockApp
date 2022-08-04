@@ -8,9 +8,14 @@ class QrReaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('QR Reader'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        backgroundColor: Colors.transparent,
+        child: const Icon(Icons.close, color: Colors.white),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: const QRScanner()
     );
   }
