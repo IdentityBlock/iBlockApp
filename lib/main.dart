@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const HomePage(),
-      theme: ThemeData(
+      theme: ThemeData.light().copyWith(
         brightness: Brightness.light,
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
         scaffoldBackgroundColor: Colors.grey.shade200,
         appBarTheme: AppBarTheme(
           color: Colors.grey.shade200,
@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         )
       ),
-      darkTheme: ThemeData(
+      darkTheme: ThemeData.dark().copyWith(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.grey.shade900,
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
         appBarTheme: AppBarTheme(
           color: Colors.grey.shade900,
           foregroundColor: Colors.white,
