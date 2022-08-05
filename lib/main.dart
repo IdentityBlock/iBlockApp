@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 import './pages/qr_reader_page.dart';
 import './pages/home_page.dart';
+import './pages/qr_result_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -47,6 +50,9 @@ class MyApp extends StatelessWidget {
           case '/qrcode-reader':
             builder = (context) => const QrReaderPage();
             break;
+            case '/qrcode-result':
+              builder = (context) => QRResultPage(settings.arguments as Barcode);
+              break;
           default:
             builder = (context) => const HomePage();
         }
