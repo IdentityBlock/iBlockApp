@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/forms/text_input_field.dart';
+import '../widgets/forms/button.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -32,7 +33,11 @@ class SignUpPage extends StatelessWidget {
               const TextInputField('Date of Birth'),
               const TextInputField('Country'),
               const TextInputField('Mobile Number'),
-              const TextInputField('Gender')
+              const TextInputField('Gender'),
+              const SizedBox(height: 30,),
+              Button('Sign up', onPressed: (){}),
+              const SizedBox(height: 20,),
+              const Text('Already had an account? Recover it here.'),
             ],
           ),
         ),
