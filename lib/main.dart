@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const WelcomeScreen3(),
+      home: const WelcomeScreen1(),
       theme: ThemeData.light().copyWith(
         brightness: Brightness.light,
         primaryColor: Colors.blue,

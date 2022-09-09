@@ -10,36 +10,39 @@ class WelcomeScreen3 extends StatelessWidget {
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
-              const SizedBox(
+            children:const [
+              SizedBox(
                 height: 100,
               ),
-              const Text(
+              Text(
                 'Single Sign-on for \n Multiple Platforms',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              const SizedBox(
+              SizedBox(
                 child: Image(
                   image: AssetImage('assets/images/welcome3.png'),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(onPressed: (){}, child: const Text("< BACK")),
-                  TextButton(onPressed: (){}, child: const Text("NEXT >")),
-                ],
               ),
             ],
           )
       ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(onPressed: (){}, child: const Text("< BACK", style: TextStyle(fontSize: 20),)),
+              TextButton(onPressed: (){}, child: const Text("DONE", style: TextStyle(fontSize: 20),)),
+            ],
+          ),
+        )
     );
   }
 }

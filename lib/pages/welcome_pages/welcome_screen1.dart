@@ -10,39 +10,43 @@ class WelcomeScreen1 extends StatelessWidget {
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
-            const SizedBox(
+          children:const [
+            SizedBox(
               height: 100,
             ),
-            const Text(
+            Text(
               'Protect your Identity with ',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               'iBlock',
               style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
-            const SizedBox(
+            SizedBox(
               child: Image(
                 image: AssetImage('assets/images/welcome1.png'),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(onPressed: (){}, child: const Text("SKIP")),
-                TextButton(onPressed: (){}, child: const Text("NEXT >")),
-              ],
-            ),
+
           ],
         )
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(onPressed: (){}, child: const Text("SKIP", style: TextStyle(fontSize: 20),)),
+            TextButton(onPressed: (){}, child: const Text("NEXT >", style: TextStyle(fontSize: 20),)),
+          ],
+        ),
+      )
     );
   }
 }
