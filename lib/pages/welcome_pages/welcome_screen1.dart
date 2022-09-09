@@ -36,8 +36,8 @@ class WelcomeScreen1 extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(onPressed: (){}, child: const Text("Skip")),
-                TextButton(onPressed: (){}, child: const Text("Next >")),
+                TextButton(onPressed: (){}, child: const Text("SKIP")),
+                TextButton(onPressed: (){}, child: const Text("NEXT >")),
               ],
             ),
           ],

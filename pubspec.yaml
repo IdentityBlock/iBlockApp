@@ -63,6 +63,8 @@ flutter:
   assets:
      - assets/images/icon.png
      - assets/images/welcome1.png
+     - assets/images/welcome2.png
+     - assets/images/welcome3.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

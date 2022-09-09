@@ -9,6 +9,8 @@ import './pages/signup_page.dart';
 import './pages/opening_screen.dart';
 
 import './pages/welcome_pages/welcome_screen1.dart';
+import './pages/welcome_pages/welcome_screen2.dart';
+import './pages/welcome_pages/welcome_screen3.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const WelcomeScreen1(),
+      home: const WelcomeScreen3(),
       theme: ThemeData.light().copyWith(
         brightness: Brightness.light,
         primaryColor: Colors.blue,
