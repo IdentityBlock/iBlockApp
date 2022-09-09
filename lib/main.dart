@@ -6,6 +6,7 @@ import './pages/qr_reader_page.dart';
 import './pages/home_page.dart';
 import './pages/qr_result_page.dart';
 import './pages/signup_page.dart';
+import './pages/opening_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SignUpPage(),
+      home: const OpeningScreen(),
       theme: ThemeData.light().copyWith(
         brightness: Brightness.light,
         primaryColor: Colors.blue,
