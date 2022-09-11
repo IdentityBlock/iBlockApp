@@ -62,6 +62,15 @@ class MyApp extends StatelessWidget {
           case '/signin':
             builder = (context) => const SignUpPage();
             break;
+          case '/welcome1':
+            builder = (context) => const WelcomeScreen1();
+            break;
+          case '/welcome2':
+            builder = (context) => const WelcomeScreen2();
+            break;
+          case '/welcome3':
+            builder = (context) => const WelcomeScreen3();
+            break;
           default:
             builder = (context) => const HomePage();
         }
