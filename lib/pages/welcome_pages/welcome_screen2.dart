@@ -38,11 +38,19 @@ class WelcomeScreen2 extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: (){}, child: const Text("< BACK", style: TextStyle(fontSize: 20),)),
-              TextButton(onPressed: (){}, child: const Text("NEXT >", style: TextStyle(fontSize: 20),)),
+              TextButton(onPressed: () => _navigateToWelcomeScreen1(context), child: const Text("< BACK", style: TextStyle(fontSize: 20),)),
+              TextButton(onPressed: () => _navigateToWelcomeScreen3(context), child: const Text("NEXT >", style: TextStyle(fontSize: 20),)),
             ],
           ),
         )
     );
+  }
+
+  void _navigateToWelcomeScreen1(BuildContext context) {
+    Navigator.popAndPushNamed(context, '/welcome1');
+  }
+
+  void _navigateToWelcomeScreen3(BuildContext context) {
+    Navigator.popAndPushNamed(context, '/welcome3');
   }
 }
