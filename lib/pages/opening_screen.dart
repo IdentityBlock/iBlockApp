@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class OpeningScreen extends StatelessWidget {
@@ -5,6 +7,11 @@ class OpeningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Timer(const Duration(seconds: 3), () {
+      _navigateToWelcomeScreen1(context);
+    });
+
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -32,5 +39,9 @@ class OpeningScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _navigateToWelcomeScreen1(BuildContext context) {
+    Navigator.of(context).pushNamed('/welcome1');
   }
 }
