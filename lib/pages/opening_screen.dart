@@ -42,6 +42,6 @@ class OpeningScreen extends StatelessWidget {
   }
 
   void _navigateToWelcomeScreen1(BuildContext context) {
-    Navigator.of(context).pushNamed('/welcome1');
+    Navigator.popAndPushNamed(context, '/welcome1');
   }
 }
