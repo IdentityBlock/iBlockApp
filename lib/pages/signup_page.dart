@@ -37,11 +37,31 @@ class SignUpPage extends StatelessWidget {
               const SizedBox(height: 30,),
               Button('Sign up', onPressed: (){}),
               const SizedBox(height: 20,),
-              const Text('Already had an account? Recover it here.'),
+              Row(
+                children: [
+                  const Text('Already had an account?'),
+                  TextButton(onPressed: () => _openRecoverAccountDialog(context), child: const Text('Recover it here'))
+                ],
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _openRecoverAccountDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Recover Account'),
+            content: const TextInputField('Enter recovery phrase'),
+            actions: [
+              TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+              ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Submit'))
+            ],
+          );
+        });
   }
 }
