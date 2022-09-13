@@ -35,12 +35,17 @@ class _QRScannerState extends State<QRScanner> {
                 child: Container(
                   margin: const EdgeInsets.all(8),
                   child: result != null?
-                      IconButton(onPressed: () async{
+                      IconButton(
+                      onPressed: () async{
                         await controller?.resumeCamera();
                         setState(() {
                           result = null;
                         });
-                      }, icon: const Icon(Icons.refresh))
+                      },
+                      icon: const Icon(Icons.refresh,
+                        color: Colors.white,
+                        size: 32,
+                      ))
                       :
                   IconButton(
                       onPressed: () async {
@@ -51,7 +56,9 @@ class _QRScannerState extends State<QRScanner> {
                         future: controller?.getFlashStatus(),
                         builder: (context, snapshot) {
                             return Icon(
-                              snapshot.data == true ? Icons.flash_off : Icons.flash_on,
+                              snapshot.data == true ? Icons.flashlight_off_rounded : Icons.flashlight_on_rounded,
+                              color: Colors.white,
+                              size: 32,
                             );
                         },
                       )),
@@ -71,7 +78,7 @@ class _QRScannerState extends State<QRScanner> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Theme.of(context).primaryColor,
+          borderColor: Theme.of(context).colorScheme.secondary,
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,
