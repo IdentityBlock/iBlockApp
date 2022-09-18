@@ -7,7 +7,8 @@ import './pages/home_page.dart';
 import './pages/qr_result_page.dart';
 import './pages/signup_page.dart';
 import './pages/opening_screen.dart';
-
+import './pages/login_history_page.dart';
+import './pages/settings_page.dart';
 import './pages/welcome_pages/welcome_screen1.dart';
 import './pages/welcome_pages/welcome_screen2.dart';
 import './pages/welcome_pages/welcome_screen3.dart';
@@ -30,7 +31,12 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.black,
           elevation: 0,
           centerTitle: true,
-        )
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey.shade200,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.black,
+        ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         brightness: Brightness.dark,
@@ -41,7 +47,12 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
-        )
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey.shade900,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.white,
+        ),
       ),
       themeMode: ThemeMode.system,
 
@@ -70,6 +81,12 @@ class MyApp extends StatelessWidget {
             break;
           case '/welcome3':
             builder = (context) => const WelcomeScreen3();
+            break;
+          case '/history':
+            builder = (context) => const LoginHistoryPage();
+            break;
+          case '/settings':
+            builder = (context) => const SettingsPage();
             break;
           default:
             builder = (context) => const HomePage();

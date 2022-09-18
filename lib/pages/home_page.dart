@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/add_new_dialog.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -83,6 +85,9 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home"),
+          BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'History',
           ),
@@ -91,13 +96,29 @@ class HomePage extends StatelessWidget {
             label: 'New',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.light_mode),
-            label: 'Theme',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: 0,
         selectedItemColor: Colors.blue,
         onTap: (int index) {
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/history');
+              break;
+            case 2:
+              showDialog(
+                  context: context,
+                  builder: (context) => const AddNewDialog()
+              );
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/settings');
+              break;
+          }
           print(index);
         },
       ),
