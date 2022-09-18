@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         WidgetBuilder builder;
         switch(settings.name){
           case '/home':
-            builder = (context) => const HomePage();
+            builder = (context) => HomePage();
             break;
           case '/qrcode-reader':
             builder = (context) => const QrReaderPage();
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
             builder = (context) => const SettingsPage();
             break;
           default:
-            builder = (context) => const HomePage();
+            builder = (context) => HomePage();
         }
         return MaterialPageRoute(builder: builder, settings: settings);
       }),
