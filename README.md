@@ -1,7 +1,8 @@
-# iblock
+# iBlock
 
 Person Verification Digital Platform
 
+* Figma Prototype : https://bit.ly/3xdMi33
 ## Getting Started
 
 This project is a starting point for a Flutter application.
