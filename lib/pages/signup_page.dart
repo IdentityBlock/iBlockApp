@@ -28,12 +28,12 @@ class SignUpPage extends StatelessWidget {
                     'Sign Up',
                     style: Theme.of(context).textTheme.titleLarge,
                   )),
-              const TextInputField('Full Name'),
-              const TextInputField('Email'),
-              const TextInputField('Date of Birth'),
-              const TextInputField('Country'),
-              const TextInputField('Mobile Number'),
-              const TextInputField('Gender'),
+              TextInputField('Full Name'),
+              TextInputField('Email'),
+              TextInputField('Date of Birth'),
+              TextInputField('Country'),
+              TextInputField('Mobile Number'),
+              TextInputField('Gender'),
               const SizedBox(height: 30,),
               Button('Sign up', onPressed: (){}),
               const SizedBox(height: 20,),
@@ -56,7 +56,7 @@ class SignUpPage extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             title: const Text('Recover Account'),
-            content: const TextInputField('Enter recovery phrase'),
+            content: TextInputField('Enter recovery phrase'),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
               ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Submit'))

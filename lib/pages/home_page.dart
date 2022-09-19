@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/add_new_dialog.dart';
+
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final data = {"Name": "Test User",
+    "Email Address": "test@iblock.com",
+    "Date of Birth" : "01/01/2000",
+    "Country" : "United States",
+    "Mobile Number" : "+1 123 456 7890",
+    "Gender" : "Male"
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -17,57 +27,66 @@ class HomePage extends StatelessWidget {
                 width: 100,
                 height: 100,
               ),
-              const Padding(
-                  padding: EdgeInsets.all(10),
+              Padding(
+                  padding: const EdgeInsets.all(10),
                   child: Text(
-                    "Test User",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    data["Name"]!,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )),
               Table(
-                children: const [
-                  TableRow(children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Email Address",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("test@iblock.com"))
-                  ]),
-                  TableRow(children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Date of Birth",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Padding(
-                        padding: EdgeInsets.all(10), child: Text("01/01/2000"))
-                  ]),
-                  TableRow(children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Country",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("United States"))
-                  ]),
-                  TableRow(children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Mobile Number",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("+1 123 456 7890"))
-                  ]),
-                  TableRow(children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Gender",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Padding(padding: EdgeInsets.all(10), child: Text("Male"))
-                  ]),
-                ],
+                children:
+                  data.entries.map((e) => TableRow(children: [
+                        Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(e.key,
+                                style: const TextStyle(fontWeight: FontWeight.bold))),
+                        Padding(
+                            padding: const EdgeInsets.all(10), child: Text(e.value))
+                      ])).toList()
+                // const [
+                //   TableRow(children: [
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Email Address",
+                //             style: TextStyle(fontWeight: FontWeight.bold))),
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("test@iblock.com"))
+                //   ]),
+                //   TableRow(children: [
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Date of Birth",
+                //             style: TextStyle(fontWeight: FontWeight.bold))),
+                //     Padding(
+                //         padding: EdgeInsets.all(10), child: Text("01/01/2000"))
+                //   ]),
+                //   TableRow(children: [
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Country",
+                //             style: TextStyle(fontWeight: FontWeight.bold))),
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("United States"))
+                //   ]),
+                //   TableRow(children: [
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Mobile Number",
+                //             style: TextStyle(fontWeight: FontWeight.bold))),
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("+1 123 456 7890"))
+                //   ]),
+                //   TableRow(children: [
+                //     Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text("Gender",
+                //             style: TextStyle(fontWeight: FontWeight.bold))),
+                //     Padding(padding: EdgeInsets.all(10), child: Text("Male"))
+                //   ]),
+                // ],
               )
             ],
           ),
@@ -91,14 +110,25 @@ class HomePage extends StatelessWidget {
             label: 'New',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.light_mode),
-            label: 'Theme',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
         onTap: (int index) {
-          print(index);
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/history');
+              break;
+            case 1:
+              showDialog(
+                  context: context,
+                  builder: (context) => const AddNewDialog()
+              );
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/settings');
+              break;
+          }
         },
       ),
     );

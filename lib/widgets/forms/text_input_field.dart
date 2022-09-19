@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextInputField extends StatelessWidget {
   final String label;
-  const TextInputField(this.label, {Key? key}) : super(key: key);
+  EdgeInsets padding ;
+
+  TextInputField(this.label, {Key? key, this.padding = const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
