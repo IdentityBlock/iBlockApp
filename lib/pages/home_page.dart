@@ -102,9 +102,6 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home"),
-          BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'History',
           ),
@@ -117,26 +114,21 @@ class HomePage extends StatelessWidget {
             label: 'Settings',
           ),
         ],
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
         onTap: (int index) {
           switch (index) {
             case 0:
-              break;
-            case 1:
               Navigator.pushNamed(context, '/history');
               break;
-            case 2:
+            case 1:
               showDialog(
                   context: context,
                   builder: (context) => const AddNewDialog()
               );
               break;
-            case 3:
+            case 2:
               Navigator.pushNamed(context, '/settings');
               break;
           }
-          print(index);
         },
       ),
     );

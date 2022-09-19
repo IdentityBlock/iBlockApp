@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.grey.shade200,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black,
         ),
       ),
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.grey.shade900,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white,
         ),
       ),
