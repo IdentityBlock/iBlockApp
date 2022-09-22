@@ -35,9 +35,13 @@ class SignUpPage extends StatelessWidget {
               TextInputField('Mobile Number'),
               TextInputField('Gender'),
               const SizedBox(height: 30,),
-              Button('Sign up', onPressed: (){}),
+              Button('Sign up', onPressed: (){
+                print('Sign up');
+                Navigator.popAndPushNamed(context, '/home');
+              }),
               const SizedBox(height: 20,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Already had an account?'),
                   TextButton(onPressed: () => _openRecoverAccountDialog(context), child: const Text('Recover it here'))

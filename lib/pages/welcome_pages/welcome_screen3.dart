@@ -47,7 +47,7 @@ class WelcomeScreen3 extends StatelessWidget {
   }
 
   void _navigateToHomeScreen(BuildContext context) {
-    Navigator.popAndPushNamed(context, '/home');
+    Navigator.popAndPushNamed(context, '/signup');
   }
 
   void _navigateToWelcomeScreen2(BuildContext context) {
