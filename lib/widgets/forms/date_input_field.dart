@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 
-class TextInputField extends StatefulWidget {
+import 'package:date_field/date_field.dart';
+
+class DateInputField extends StatefulWidget {
   final String label;
   TextEditingController controller = TextEditingController();
   EdgeInsets padding ;
 
-  TextInputField(this.label, {
+  DateInputField(this.label, {
     Key? key,
     TextEditingController? controller,
     this.padding = const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)
   }) : super(key: key);
 
   @override
-  State<TextInputField> createState() => _TextInputFieldState();
+  State<DateInputField> createState() => _DateInputFieldState();
 }
 
-class _TextInputFieldState extends State<TextInputField> {
+class _DateInputFieldState extends State<DateInputField> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: widget.padding,
-      child: TextFormField(
-        controller: widget.controller,
+      child: DateTimeFormField(
         decoration: InputDecoration(
           labelText: widget.label,
           labelStyle: const TextStyle(
@@ -40,11 +42,13 @@ class _TextInputFieldState extends State<TextInputField> {
               width: 1,
             ),
           ),
+          suffixIcon: const Icon(Icons.event_note),
         ),
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
+        mode: DateTimeFieldPickerMode.date,
+        autovalidateMode: AutovalidateMode.always,
+        onDateSelected: (DateTime value) {
+          widget.controller.text = value.toString();
+        },
       ),
     );
   }

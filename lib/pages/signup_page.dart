@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/signup/signup_bloc.dart';
 
+import '../widgets/forms/date_input_field.dart';
 import '../widgets/forms/text_input_field.dart';
 import '../widgets/forms/button.dart';
 
@@ -47,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   )),
               TextInputField('Full Name', controller: _nameController),
               TextInputField('Email', controller: _emailController),
-              TextInputField('Date of Birth', controller: _dobController),
+              DateInputField('Date of Birth', controller: _dobController),
               TextInputField('Country', controller: _countryController),
               TextInputField('Mobile Number', controller: _mobileNumberController),
               TextInputField('Gender', controller: _genderController),
@@ -69,14 +70,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     child: Button('Sign Up', onPressed: () {
-                      _signupBloc.add(SubmitSignupEvent(
-                        name: _nameController.text,
-                        email: _emailController.text,
-                        dob: _dobController.text,
-                        country: _countryController.text,
-                        phone: _mobileNumberController.text,
-                        gender: _genderController.text
-                      ));
+                      if (_validateInputs()){
+                        _signupBloc.add(SubmitSignupEvent(
+                            name: _nameController.text,
+                            email: _emailController.text,
+                            dob: _dobController.text,
+                            country: _countryController.text,
+                            phone: _mobileNumberController.text,
+                            gender: _genderController.text
+                        ));
+                      }
                     }),
                   ),
 
@@ -109,5 +112,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ],
           );
         });
+  }
+
+  bool _validateInputs(){
+    return true;
   }
 }
