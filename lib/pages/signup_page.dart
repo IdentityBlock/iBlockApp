@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/signup/signup_bloc.dart';
 
 import '../widgets/forms/date_input_field.dart';
+import '../widgets/forms/select_input_field.dart';
 import '../widgets/forms/text_input_field.dart';
 import '../widgets/forms/button.dart';
 
@@ -51,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
               DateInputField('Date of Birth', controller: _dobController),
               TextInputField('Country', controller: _countryController),
               TextInputField('Mobile Number', controller: _mobileNumberController),
-              TextInputField('Gender', controller: _genderController),
+              SelectInputField('Gender', const ['Male', 'Female', 'Other'], controller: _genderController),
               const SizedBox(height: 30,),
 
                 BlocProvider(
