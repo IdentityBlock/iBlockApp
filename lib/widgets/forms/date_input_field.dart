@@ -4,12 +4,12 @@ import 'package:date_field/date_field.dart';
 
 class DateInputField extends StatefulWidget {
   final String label;
-  TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
   EdgeInsets padding ;
 
   DateInputField(this.label, {
     Key? key,
-    TextEditingController? controller,
+    required this.controller,
     this.padding = const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)
   }) : super(key: key);
 

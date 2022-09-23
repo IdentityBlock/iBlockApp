@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class SelectInputField extends StatefulWidget {
   final String label;
   final List<String> options;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
   EdgeInsets padding;
 
   SelectInputField(this.label, this.options,
       { Key? key,
-        TextEditingController? controller,
+        required this.controller,
         this.padding =
           const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)})
       : super(key: key);

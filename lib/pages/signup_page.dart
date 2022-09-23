@@ -71,6 +71,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     child: Button('Sign Up', onPressed: () {
+                      print({
+                        'name': _nameController.text,
+                        'email': _emailController.text,
+                        'dob': _dobController.text,
+                        'country': _countryController.text,
+                        'phone': _mobileNumberController.text,
+                        'gender': _genderController.text
+                      });
                       if (_validateInputs()){
                         _signupBloc.add(SubmitSignupEvent(
                             name: _nameController.text,
@@ -106,7 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (context) {
           return AlertDialog(
             title: const Text('Recover Account'),
-            content: TextInputField('Enter recovery phrase'),
+            content: TextInputField('Enter recovery phrase', controller: TextEditingController(),),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
               ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Submit'))
