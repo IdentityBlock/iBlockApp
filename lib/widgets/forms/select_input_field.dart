@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 
-class TextInputField extends StatefulWidget {
+class SelectInputField extends StatefulWidget {
   final String label;
+  final List<String> options;
   final TextEditingController controller;
-  EdgeInsets padding ;
+  EdgeInsets padding;
 
-  TextInputField(this.label, {
-    Key? key,
-    required this.controller,
-    this.padding = const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)
-  }) : super(key: key);
+  SelectInputField(this.label, this.options,
+      { Key? key,
+        required this.controller,
+        this.padding =
+          const EdgeInsets.only(top: 8, bottom: 8, left: 30, right: 30)})
+      : super(key: key);
 
   @override
-  State<TextInputField> createState() => _TextInputFieldState();
+  State<SelectInputField> createState() => _SelectInputFieldState();
 }
 
-class _TextInputFieldState extends State<TextInputField> {
+class _SelectInputFieldState extends State<SelectInputField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: widget.padding,
-      child: TextFormField(
-        controller: widget.controller,
+      child: DropdownButtonFormField(
         decoration: InputDecoration(
           labelText: widget.label,
           labelStyle: const TextStyle(
@@ -45,6 +46,15 @@ class _TextInputFieldState extends State<TextInputField> {
           color: Colors.black,
           fontSize: 16,
         ),
+        items: widget.options.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (String? value) {
+          widget.controller.text = value!;
+        },
       ),
     );
   }
