@@ -67,18 +67,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         );
                       }
                       else if (state is Success) {
-                        Navigator.popAndPushNamed(context, '/home');
+                        Navigator.popAndPushNamed(context, '/home',
+                        arguments: {
+                          'Name': _nameController.text,
+                          'Email': _emailController.text,
+                          'Date of Birth': _dobController.text,
+                          'Country': _countryController.text,
+                          'Phone': _mobileNumberController.text,
+                          'Gender': _genderController.text
+                        });
                       }
                     },
                     child: Button('Sign Up', onPressed: () {
-                      print({
-                        'name': _nameController.text,
-                        'email': _emailController.text,
-                        'dob': _dobController.text,
-                        'country': _countryController.text,
-                        'phone': _mobileNumberController.text,
-                        'gender': _genderController.text
-                      });
                       if (_validateInputs()){
                         _signupBloc.add(SubmitSignupEvent(
                             name: _nameController.text,
