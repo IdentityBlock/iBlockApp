@@ -1,5 +1,4 @@
 import 'dart:developer' as developer;
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -95,8 +94,8 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         result = scanData;
       });
-      Navigator.pushNamed(context, '/qrcode-result', arguments: scanData);
       controller.pauseCamera();
+      Navigator.pushNamed(context, '/qrcode-result', arguments: scanData);
     });
   }
 

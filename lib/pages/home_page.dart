@@ -5,16 +5,9 @@ import '../widgets/add_new_dialog.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final data = {"Name": "Test User",
-    "Email Address": "test@iblock.com",
-    "Date of Birth" : "01/01/2000",
-    "Country" : "United States",
-    "Mobile Number" : "+1 123 456 7890",
-    "Gender" : "Male"
-  };
-
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -43,50 +36,6 @@ class HomePage extends StatelessWidget {
                         Padding(
                             padding: const EdgeInsets.all(10), child: Text(e.value))
                       ])).toList()
-                // const [
-                //   TableRow(children: [
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("Email Address",
-                //             style: TextStyle(fontWeight: FontWeight.bold))),
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("test@iblock.com"))
-                //   ]),
-                //   TableRow(children: [
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("Date of Birth",
-                //             style: TextStyle(fontWeight: FontWeight.bold))),
-                //     Padding(
-                //         padding: EdgeInsets.all(10), child: Text("01/01/2000"))
-                //   ]),
-                //   TableRow(children: [
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("Country",
-                //             style: TextStyle(fontWeight: FontWeight.bold))),
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("United States"))
-                //   ]),
-                //   TableRow(children: [
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("Mobile Number",
-                //             style: TextStyle(fontWeight: FontWeight.bold))),
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("+1 123 456 7890"))
-                //   ]),
-                //   TableRow(children: [
-                //     Padding(
-                //         padding: EdgeInsets.all(10),
-                //         child: Text("Gender",
-                //             style: TextStyle(fontWeight: FontWeight.bold))),
-                //     Padding(padding: EdgeInsets.all(10), child: Text("Male"))
-                //   ]),
-                // ],
               )
             ],
           ),

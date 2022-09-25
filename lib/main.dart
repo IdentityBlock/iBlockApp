@@ -88,6 +88,9 @@ class MyApp extends StatelessWidget {
           case '/settings':
             builder = (context) => const SettingsPage();
             break;
+          case '/signup':
+            builder = (context) => const SignUpPage();
+            break;
           default:
             builder = (context) => HomePage();
         }

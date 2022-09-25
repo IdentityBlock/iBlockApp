@@ -11,8 +11,8 @@ class AddNewDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextInputField("Property Name", padding: const EdgeInsets.all(8),),
-          TextInputField("Property Value", padding: const EdgeInsets.all(8),),
+          TextInputField("Property Name", padding: const EdgeInsets.all(8), controller: TextEditingController(),),
+          TextInputField("Property Value", padding: const EdgeInsets.all(8), controller: TextEditingController(),),
         ],
       ),
       actions: [
