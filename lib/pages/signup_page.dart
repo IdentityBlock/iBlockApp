@@ -25,6 +25,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
 
+  String _validation = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +55,9 @@ class _SignUpPageState extends State<SignUpPage> {
               TextInputField('Country', controller: _countryController),
               TextInputField('Mobile Number', controller: _mobileNumberController),
               SelectInputField('Gender', const ['Male', 'Female', 'Other'], controller: _genderController),
-              const SizedBox(height: 30,),
-
+              const SizedBox(height: 10,),
+              Text(_validation, style: const TextStyle(color: Colors.red),),
+              const SizedBox(height: 10,),
                 BlocProvider(
                   create: (context) => _signupBloc,
                   child: BlocListener<SignupBloc, SignupState>(
@@ -124,6 +127,35 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   bool _validateInputs(){
-    return true;
+    String message = "";
+    //check for empty fields
+    if (_nameController.text == ""){
+      message = "Name field cannot be empty";
+    }
+    else if (_emailController.text == ""){
+      message = "Email field cannot be empty";
+    }
+    else if (_dobController.text == "") {
+      message = "Date of Birth field cannot be empty";
+    }
+    else if (_countryController.text == ""){
+      message = "Country field cannot be empty";
+    }
+    else if (_mobileNumberController.text == ""){
+      message = "Mobile number field cannot be empty";
+    }
+    else if (_genderController.text == ""){
+      message = "Gender field cannot be empty";
+    }
+
+    if(message == ""){
+      return true;
+    }
+    else{
+      setState(() {
+        _validation = message;
+      });
+      return false;
+    }
   }
 }
