@@ -33,6 +33,9 @@ dependencies:
   equatable: ^2.0.3
   qr_code_scanner: ^1.0.0
   date_field: ^3.0.0
+  web3dart: ^2.3.5
+  rsa_encrypt: ^2.0.0
+  http: ^0.13.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,6 +43,7 @@ dependencies:
   web3dart: ^2.3.5
   rsa_encrypt: ^2.0.0
   http: ^0.13.5
+  web_socket_channel: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +74,7 @@ flutter:
      - assets/images/welcome1.png
      - assets/images/welcome2.png
      - assets/images/welcome3.png
+     - contracts/build/contracts/Accounts.json
      - assets/images/error.png
   #   - images/a_dot_ham.jpeg
 
