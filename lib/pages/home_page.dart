@@ -10,34 +10,36 @@ class HomePage extends StatelessWidget {
     final data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image(
-                image: Image.asset('assets/images/profile.png').image,
-                width: 100,
-                height: 100,
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    data["Name"]!,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )),
-              Table(
-                children:
-                  data.entries.map((e) => TableRow(children: [
-                        Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(e.key,
-                                style: const TextStyle(fontWeight: FontWeight.bold))),
-                        Padding(
-                            padding: const EdgeInsets.all(10), child: Text(e.value))
-                      ])).toList()
-              )
-            ],
+        child: SingleChildScrollView(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image(
+                  image: Image.asset('assets/images/profile.png').image,
+                  width: 100,
+                  height: 100,
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      data["Name"]!,
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+                Table(
+                  children:
+                    data.entries.map((e) => TableRow(children: [
+                          Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(e.key,
+                                  style: const TextStyle(fontWeight: FontWeight.bold))),
+                          Padding(
+                              padding: const EdgeInsets.all(10), child: Text(e.value))
+                        ])).toList()
+                )
+              ],
+            ),
           ),
         ),
       ),

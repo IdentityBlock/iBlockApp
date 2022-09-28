@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+
+import '../../utils/accounts.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -13,7 +13,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
       //simulate the signup process
       // creating a wallet, storing the data in wallet
-      await Future.delayed(const Duration(seconds: 3));
+      await Accounts.createAccount(event.name, event.email);
+      // await Future.delayed(const Duration(seconds: 3));
 
       emit(Success());
     });
