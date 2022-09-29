@@ -80,6 +80,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           'Gender': _genderController.text
                         });
                       }
+                      else if (state is Failed){
+                        Navigator.pushNamed(context, "/error");
+                      }
                     },
                     child: Button('Sign Up', onPressed: () {
                       if (_validateInputs()){

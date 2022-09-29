@@ -45,7 +45,7 @@ class Accounts{
     _addAccount = _contract.function("addAccount");
   }
 
-  static Future<void> createAccount(
+  static Future<String> createAccount(
       String name,
       String email
       ) async {
@@ -58,9 +58,9 @@ class Accounts{
     var result = await _client.sendTransaction(
       _credentials,
       Transaction.callContract(contract: _contract, function: _addAccount, parameters: [name, email])
-    );
+    ).timeout(const Duration(seconds: 10), onTimeout: throw Exception("Request timed out!"));
 
-    print(result);
+    return result.toString();
   }
 }
 

@@ -11,11 +11,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SubmitSignupEvent>((event, emit) async{
       emit(Submitted());
 
-      //simulate the signup process
-      // creating a wallet, storing the data in wallet
-      await Accounts.createAccount(event.name, event.email);
-      // await Future.delayed(const Duration(seconds: 3));
-
+      try{
+        String result = await Accounts.createAccount(event.name, event.email);
+      }
+      catch(error){
+        emit(Failed(error.toString()));
+      }
       emit(Success());
     });
   }
