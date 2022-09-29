@@ -24,19 +24,16 @@ class _TextInputFieldState extends State<TextInputField> {
         controller: widget.controller,
         decoration: InputDecoration(
           labelText: widget.label,
-          labelStyle: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-          enabledBorder: const OutlineInputBorder(
+          labelStyle: Theme.of(context).textTheme.bodyMedium,
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black,
+              color: Theme.of(context).primaryColorDark,
               width: 1,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.blue,
+              color: Theme.of(context).colorScheme.secondary,
               width: 1,
             ),
           ),

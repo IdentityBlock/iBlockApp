@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import './pages/qr_reader_page.dart';
 import './pages/home_page.dart';
-import './pages/qr_result_page.dart';
-import './pages/signup_page.dart';
-import './pages/opening_screen.dart';
 import './pages/login_history_page.dart';
+import './pages/opening_screen.dart';
+import './pages/qr_reader_page.dart';
+import './pages/qr_result_page.dart';
 import './pages/settings_page.dart';
+import './pages/signup_page.dart';
 import './pages/welcome_pages/welcome_screen1.dart';
 import './pages/welcome_pages/welcome_screen2.dart';
 import './pages/welcome_pages/welcome_screen3.dart';
@@ -27,33 +26,43 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         scaffoldBackgroundColor: Colors.grey.shade200,
         appBarTheme: AppBarTheme(
-          color: Colors.grey.shade200,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          centerTitle: true,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey.shade200,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black,
-        ),
-      ),
+            color: Colors.grey.shade200,
+            foregroundColor: Colors.black,
+            elevation: 0,
+            centerTitle: true,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey.shade200,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.black,
+          ),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+            ),
+          )),
       darkTheme: ThemeData.dark().copyWith(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.grey.shade900,
         primaryColor: Colors.blue,
         appBarTheme: AppBarTheme(
-          color: Colors.grey.shade900,
-          foregroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey.shade900,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white,
-        ),
-      ),
+            color: Colors.grey.shade900,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey.shade900,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white,
+          ),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          )),
       themeMode: ThemeMode.system,
 
       // routes
