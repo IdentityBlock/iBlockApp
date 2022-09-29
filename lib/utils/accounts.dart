@@ -58,8 +58,9 @@ class Accounts{
     var result = await _client.sendTransaction(
       _credentials,
       Transaction.callContract(contract: _contract, function: _addAccount, parameters: [name, email])
-    ).timeout(const Duration(seconds: 10), onTimeout: throw Exception("Request timed out!"));
+    );
 
+    _client.dispose();
     return result.toString();
   }
 }

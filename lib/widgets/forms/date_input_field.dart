@@ -43,7 +43,7 @@ class _DateInputFieldState extends State<DateInputField> {
         mode: DateTimeFieldPickerMode.date,
         autovalidateMode: AutovalidateMode.always,
         onDateSelected: (DateTime value) {
-          widget.controller.text = value.toString();
+          widget.controller.text = value.toString().replaceFirst("00:00:00.000", "");
         },
       ),
     );
