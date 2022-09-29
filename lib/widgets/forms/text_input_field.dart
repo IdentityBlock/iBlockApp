@@ -37,11 +37,9 @@ class _TextInputFieldState extends State<TextInputField> {
               width: 1,
             ),
           ),
+          fillColor: Theme.of(context).primaryColorLight
         ),
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium
       ),
     );
   }

@@ -8,28 +8,25 @@ class PasswordInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+          labelText: label,
+          labelStyle: const TextStyle(
             color: Colors.black,
-            width: 2,
+            fontSize: 20,
           ),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2,
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 2,
+            ),
           ),
-        ),
-      ),
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 20,
-      ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 2,
+            ),
+          ),
+          fillColor: Theme.of(context).primaryColorLight),
+      style: Theme.of(context).textTheme.bodyMedium,
       obscureText: true,
       autocorrect: false,
       enableSuggestions: false,
