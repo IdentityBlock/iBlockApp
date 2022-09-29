@@ -24,28 +24,28 @@ class _SelectInputFieldState extends State<SelectInputField> {
       padding: widget.padding,
       child: DropdownButtonFormField(
         decoration: InputDecoration(
-          labelText: widget.label,
-          labelStyle: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black,
-              width: 1,
+            labelText: widget.label,
+            labelStyle: Theme.of(context).textTheme.bodyMedium,
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColorDark,
+                width: 1,
+              ),
             ),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.blue,
-              width: 1,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColorDark,
+                width: 1,
+              ),
             ),
-          ),
-        ),
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-        ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 1,
+              ),
+            ),
+            fillColor: Theme.of(context).primaryColorLight),
+        style: Theme.of(context).textTheme.bodyMedium,
         items: widget.options.map((String value) {
           return DropdownMenuItem<String>(
             value: value,

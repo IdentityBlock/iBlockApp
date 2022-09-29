@@ -10,13 +10,19 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(Initial()) {
     on<SubmitSignupEvent>((event, emit) async{
       emit(Submitted());
-
-      //simulate the signup process
-      // creating a wallet, storing the data in wallet
-      await Accounts.createAccount(event.name, event.email);
-      // await Future.delayed(const Duration(seconds: 3));
-
-      emit(Success());
+      print(event);
+      try{
+        print("Into the try");
+        String result = await Accounts.createAccount(event.name, event.email).timeout(const Duration(seconds: 10), onTimeout: (){
+          throw Exception("Request Timed Out");
+        });
+        print(result);
+        emit(Success());
+      }
+      catch(error){
+        print(error.toString());
+        emit(Failed(error.toString()));
+      }
     });
   }
 }

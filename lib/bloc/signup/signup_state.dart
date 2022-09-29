@@ -9,4 +9,7 @@ class Submitted extends SignupState {}
 
 class Success extends SignupState {}
 
-class Failed extends SignupState {}
+class Failed extends SignupState {
+  String message;
+  Failed(this.message);
+}

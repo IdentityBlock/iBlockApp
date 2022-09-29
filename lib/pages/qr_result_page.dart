@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import './error_page.dart';
+import '../widgets/forms/button.dart';
 
 class QRResultPage extends StatelessWidget {
   final Barcode result;
@@ -48,29 +49,18 @@ class QRResultPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.blue)
-                                .copyWith(
-                                elevation:
-                                ButtonStyleButton.allOrNull(0.0)),
-                            child: const Text("Approve"),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(2.0),
+                            child: Button(
+                              "Approve",
+                              onPressed: () {},
+                            )),
                         Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.red)
-                                .copyWith(
-                                elevation:
-                                ButtonStyleButton.allOrNull(0.0)),
-                            child: const Text("Decline"),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(2.0),
+                            child: Button(
+                              "Decline",
+                              onPressed: () {},
+                              color: Colors.red,
+                            )),
                       ],
                     ),
                   )

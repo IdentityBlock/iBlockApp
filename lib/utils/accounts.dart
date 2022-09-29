@@ -45,7 +45,7 @@ class Accounts{
     _addAccount = _contract.function("addAccount");
   }
 
-  static Future<void> createAccount(
+  static Future<String> createAccount(
       String name,
       String email
       ) async {
@@ -60,7 +60,8 @@ class Accounts{
       Transaction.callContract(contract: _contract, function: _addAccount, parameters: [name, email])
     );
 
-    print(result);
+    _client.dispose();
+    return result.toString();
   }
 }
 
