@@ -9,7 +9,7 @@ class LoginHistoryPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Login History'),
       ),
-      body: const Center(child: Text("Login History"),),
+      body: const Center(child: Text("No Data Found"),),
     );
   }
 }
