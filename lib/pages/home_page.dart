@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../widgets/add_new_dialog.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Map<String, String> data = {};
+
+  @override
   Widget build(BuildContext context) {
-    final data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,7 +80,7 @@ class HomePage extends StatelessWidget {
             case 1:
               showDialog(
                   context: context,
-                  builder: (context) => const AddNewDialog()
+                  builder: (context) => AddNewDialog(addNewProperty)
               );
               break;
             case 2:
@@ -83,5 +90,11 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void addNewProperty(String property, String value){
+    setState(() {
+      data[property] = value;
+    });
   }
 }
