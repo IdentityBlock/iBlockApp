@@ -74,7 +74,7 @@ class QRResultPage extends StatelessWidget {
       );
     }
     catch(e){
-      return ErrorPage();
+      return const ErrorPage(message: "QR code not recognized!",);
     }
 
   }

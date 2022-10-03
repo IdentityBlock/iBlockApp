@@ -81,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                       }
                       else if (state is Failed){
-                        Navigator.pushNamed(context, "/error");
+                        Navigator.pushNamed(context, "/error", arguments: {'message': state.message});
                       }
                     },
                     child: Button('Sign Up', onPressed: () {
