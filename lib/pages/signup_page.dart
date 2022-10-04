@@ -81,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                       }
                       else if (state is Failed){
-                        Navigator.pushNamed(context, "/error", arguments: {'message': 'Failed to connect. Try again later!'});
+                        Navigator.pushNamed(context, "/error", arguments: {'message': state.message});
                       }
                     },
                     child: Button('Sign Up', onPressed: () {
