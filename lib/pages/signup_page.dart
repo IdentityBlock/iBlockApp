@@ -26,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _genderController = TextEditingController();
 
   String _validation = "";
+  List<String> countries = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
               TextInputField('Full Name', controller: _nameController),
               TextInputField('Email', controller: _emailController),
               DateInputField('Date of Birth', controller: _dobController),
-              TextInputField('Country', controller: _countryController),
+              _countriesDropDown(context, _countryController),
               TextInputField('Mobile Number', controller: _mobileNumberController),
               SelectInputField('Gender', const ['Male', 'Female', 'Other'], controller: _genderController),
               const SizedBox(height: 10,),
@@ -160,5 +161,26 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       return false;
     }
+  }
+
+  Widget _countriesDropDown(BuildContext context, TextEditingController controller){
+    return BlocProvider(
+      create: (context) => _signupBloc,
+      child: BlocBuilder<SignupBloc,SignupState>(
+        buildWhen: ((previous, current) => previous is! Loaded && current is Loaded),
+        builder: (context, state){
+          if (state is Initial){
+            _signupBloc.add(LoadEvent());
+          }
+          else if (state is Loaded){
+              countries = state.countries;
+              return SelectInputField("Country", countries, controller: controller);
+          }
+          return CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,);
+
+        },
+      )
+
+    );
   }
 }
