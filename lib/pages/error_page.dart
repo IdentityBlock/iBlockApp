@@ -25,7 +25,20 @@ class ErrorPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(message),
-            )
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, "/");
+                },
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.replay_rounded),
+                      Text(
+                        "Reload",
+                        style: TextStyle(fontSize: 16),
+                      )
+                    ]))
           ],
         ),
       ),
