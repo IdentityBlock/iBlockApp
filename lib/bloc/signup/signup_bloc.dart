@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../../services/secure_storage_service.dart';
 import '../../utils/accounts.dart';
+import '../../utils/create_ethereum_account.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -49,7 +50,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           throw Exception("Request Timed Out");
         });
 
-        SecureStorageService.store("privateKey", "123456789");
+        SecureStorageService.store("privateKey", CreateEthereumAccount.create());
 
         print(result);
         emit(Success());
