@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
+import '../../services/secure_storage_service.dart';
 import '../../utils/accounts.dart';
 
 part 'signup_event.dart';
@@ -44,10 +45,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(Submitted());
       print(event);
       try{
-        print("Into the try");
         String result = await Accounts.createAccount(event.name, event.email).timeout(const Duration(seconds: 10), onTimeout: (){
           throw Exception("Request Timed Out");
         });
+
+        SecureStorageService.store("privateKey", "123456789");
+
         print(result);
         emit(Success());
       }
