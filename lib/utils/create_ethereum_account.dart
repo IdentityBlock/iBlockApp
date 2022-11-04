@@ -32,12 +32,15 @@ class CreateEthereumAccount{
   }
 
   // return a new private key with some funds on it
-  static Future<String> create() async{
+  static Future<Map<String, String>> create() async{
     EthPrivateKey newPrivateKey = _genratePrivateKey() as EthPrivateKey;
     EthereumAddress address = await newPrivateKey.extractAddress();
     await _transactEther(address);
 
-    return bytesToHex(newPrivateKey.privateKey);
+    return {
+      "private-key": bytesToHex(newPrivateKey.privateKey),
+      "eth-address": address.hex
+    };
   }
 
 }

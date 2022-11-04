@@ -2,14 +2,14 @@
 // class contain all config information
 
 class Config{
-  static const String rpcUrl = "http://192.168.8.163:7546";
-  static const String wsUrl = "ws://192.168.8.163:7546";
+  static const String rpcUrl = "http://192.168.8.163:8545";
+  static const String wsUrl = "ws://192.168.8.163:8545";
 
-  static const String fundTransferAccountPrivateKey = "7e9d236e0613b719e287e25874a4ea9a971f1855c02906affa1348818a4d7bf5";
+  static const String fundTransferAccountPrivateKey = "2ffdcdececb76f1c6ff826cbb4c0138cac3f5f2950540a1ff1a0530cd5f5063f";
 
 
   // contract details
   static const String accountsContractAbiJsonFile = "contracts/build/contracts/Accounts.json";
-
+  static const String backendUrl = "http://192.168.8.163:3000";
 
 }

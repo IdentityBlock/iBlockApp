@@ -50,6 +50,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.3.2
+  test: ^1.22.0
+
+dependency_overrides:
+  test_api: 0.4.16
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,7 +80,6 @@ flutter:
      - assets/images/welcome1.png
      - assets/images/welcome2.png
      - assets/images/welcome3.png
-     - contracts/build/contracts/Accounts.json
      - assets/images/error.png
   #   - images/a_dot_ham.jpeg
 
