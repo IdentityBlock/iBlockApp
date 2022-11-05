@@ -71,6 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         );
                       }
                       else if (state is Success) {
+                        print("Signup succeeded");
                         Navigator.popAndPushNamed(context, '/home',
                         arguments: state.userInfo);
                       }

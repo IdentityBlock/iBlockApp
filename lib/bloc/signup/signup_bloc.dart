@@ -57,12 +57,20 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             dob: event.dob,
             country: event.country,
             mobile: event.phone,
-            gender: event.gender);
+            gender: event.gender)
+        .timeout(const Duration(seconds: 10),
+        onTimeout: (){
+          throw Exception("Failed to deploy you contract");
+        });
 
         await SecureStorageService.store("private-key", privateKey);
         await SecureStorageService.store("contract-address", contractAddress);
 
-        var userInfo = await service.getAll(contractAddress, privateKey);
+        var userInfo = await service.getAll(contractAddress, privateKey)
+            .timeout(const Duration(seconds: 10),
+          onTimeout: (){
+              throw Exception("Failed to fetch your user data");
+          });
 
         emit(Success(userInfo));
       }
