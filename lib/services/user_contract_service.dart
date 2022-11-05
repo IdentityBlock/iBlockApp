@@ -14,7 +14,7 @@ class UserContractService{
     _abiJSON = _getAbi();
   }
 
-  Future<String> deploy(String ethAddress, {
+  Future<Map<String, String>> deploy({
     required String name,
     required String email,
     required String dob,
@@ -25,7 +25,6 @@ class UserContractService{
     // return the address of deployed contract
     final response = await http.post(Uri.parse("${Config.backendUrl}/contract"),
                         body: {
-                          "ethaddress" : ethAddress,
                           "name": name,
                           "email": email,
                           "dob": dob,
@@ -36,7 +35,10 @@ class UserContractService{
 
     if(response.statusCode == 200){
       var responseJson = jsonDecode(response.body);
-      return responseJson['contract-address'];
+      return {
+        'private-key': responseJson['private-key'],
+        'contract-address': responseJson['contract-address']
+      };
     }
     else{
       throw Exception("Unable to connect to the backend");

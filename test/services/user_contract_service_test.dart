@@ -10,18 +10,17 @@ void main(){
   
   test('Testing deployment of user contract', () async{
     final service = UserContractService();
-    String contractaddress = await service.deploy("0xb2380fD3872B692BbD16980B45E199FD00AE332A",
-        name: "test", email: "test@example.com", dob: "2000/01/01", country: "Sri Lanka", mobile: "+9412345678", gender: "Male");
+    var result = await service.deploy(name: "test", email: "test@example.com", dob: "2000/01/01", country: "Sri Lanka", mobile: "+9412345678", gender: "Male");
 
-    print(contractaddress);
+    print(result);
   });
   
   test('Test fetching details from user contract: called by owner', () async{
     final service = UserContractService();
-    var result = await service.getAll("0x949e1fB80027B3D9b7D33767A17a2B4ebfD1Cb73",
-        "c2dc617baba8793774026d6b2559f45a5fd4c856fdbccc55fc2cbf4fbec1808f");
+    var result = await service.getAll("0x547fda582EeEc9574BFF8Aa768786C15702AE0fD",
+        "0xdb7a1fc3433dbe9d11b53357927dbfc80e3f9d5c211c6c29ce49acca3633dbf3");
     print(result);
-    expect(result, {"Name": "Akila", "Email": "akila.19@cse.mrt.ac.lk", "Date of Birth": "1999/01/01", "Country": "Sri Lanka", "Phone": "+941234567", "Gender": "Male"});
+    expect(result, {"Name": "test", "Email": "test@example.com", "Date of Birth": "2000/01/01", "Country": "Sri Lanka", "Phone": "+9412345678", "Gender": "Male"});
   });
 
   test('Test fetching details from user contract: called by other', () async{
