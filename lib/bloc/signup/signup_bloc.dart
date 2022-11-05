@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 import '../../services/secure_storage_service.dart';
+import '../../services/user_contract_service.dart';
 import '../../utils/accounts.dart';
 import '../../utils/create_ethereum_account.dart';
 
@@ -44,16 +45,26 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
     on<SubmitSignupEvent>((event, emit) async{
       emit(Submitted());
-      print(event);
       try{
-        String result = await Accounts.createAccount(event.name, event.email).timeout(const Duration(seconds: 10), onTimeout: (){
-          throw Exception("Request Timed Out");
-        });
 
-        SecureStorageService.store("privateKey", CreateEthereumAccount.create());
+        var privateKey = await CreateEthereumAccount.create();
+        var ethereumAddress = await CreateEthereumAccount.getEthereumAddress(privateKey);
 
-        print(result);
-        emit(Success());
+        var service = UserContractService();
+        var contractAddress = await service.deploy(ethereumAddress,
+            name: event.name,
+            email: event.email,
+            dob: event.dob,
+            country: event.country,
+            mobile: event.phone,
+            gender: event.gender);
+
+        await SecureStorageService.store("private-key", privateKey);
+        await SecureStorageService.store("contract-address", contractAddress);
+
+        var userInfo = await service.getAll(contractAddress, privateKey);
+
+        emit(Success(userInfo));
       }
       catch(error){
         print(error.toString());

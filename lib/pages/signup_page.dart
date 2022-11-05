@@ -72,14 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                       else if (state is Success) {
                         Navigator.popAndPushNamed(context, '/home',
-                        arguments: {
-                          'Name': _nameController.text,
-                          'Email': _emailController.text,
-                          'Date of Birth': _dobController.text,
-                          'Country': _countryController.text,
-                          'Phone': _mobileNumberController.text,
-                          'Gender': _genderController.text
-                        });
+                        arguments: state.userInfo);
                       }
                       else if (state is Failed){
                         Navigator.pushNamed(context, "/error", arguments: {'message': state.message});
