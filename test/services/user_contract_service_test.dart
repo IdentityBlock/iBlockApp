@@ -15,4 +15,11 @@ void main(){
 
     print(contractaddress);
   });
+  
+  test('Test fetching name from user contract: called by owner', () async{
+    final service = UserContractService();
+    String result = await service.getName("0x949e1fB80027B3D9b7D33767A17a2B4ebfD1Cb73",
+        "c2dc617baba8793774026d6b2559f45a5fd4c856fdbccc55fc2cbf4fbec1808f");
+    print(result);
+  });
 }

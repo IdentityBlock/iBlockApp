@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:web3dart/web3dart.dart' as web3;
+import 'package:web3dart/web3dart.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
 
 import '../config.dart';
@@ -9,7 +10,7 @@ class UserContractService{
 
   late final Object _abiJSON;
 
-  UserContractService(){
+  UserContractService() {
     _abiJSON = _getAbi();
   }
 
@@ -52,6 +53,27 @@ class UserContractService{
     else{
       throw Exception("Unable to connect to the backend");
     }
+  }
+
+  Future<String> getName(String contractAddress, String privateKey) async{
+    EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
+    EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
+    EthereumAddress sender = await credentials.extractAddress();
+
+    Object abi = await _abiJSON;
+
+    DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
+
+    ContractFunction _getName = smartContract.function("getName");
+
+    Web3Client web3client = Web3Client(Config.rpcUrl, http.Client(), socketConnector: (){
+      return IOWebSocketChannel.connect(Config.wsUrl).cast<String>();
+    });
+
+    var result = await web3client.call(contract: smartContract, function: _getName, params: [], sender: sender);
+
+    web3client.dispose();
+    return result[0] as String;
   }
 
   Object getAbiJson() {
