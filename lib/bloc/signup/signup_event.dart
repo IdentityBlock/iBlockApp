@@ -3,6 +3,8 @@ part of 'signup_bloc.dart';
 @immutable
 abstract class SignupEvent {}
 
+class LoadEvent extends SignupEvent{}
+
 class SubmitSignupEvent extends SignupEvent {
   final String name;
   final String email;

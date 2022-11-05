@@ -26,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _genderController = TextEditingController();
 
   String _validation = "";
+  List<String> countries = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
               TextInputField('Full Name', controller: _nameController),
               TextInputField('Email', controller: _emailController),
               DateInputField('Date of Birth', controller: _dobController),
-              TextInputField('Country', controller: _countryController),
+              _countriesDropDown(context, _countryController),
               TextInputField('Mobile Number', controller: _mobileNumberController),
               SelectInputField('Gender', const ['Male', 'Female', 'Other'], controller: _genderController),
               const SizedBox(height: 10,),
@@ -70,15 +71,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         );
                       }
                       else if (state is Success) {
+                        print("Signup succeeded");
                         Navigator.popAndPushNamed(context, '/home',
-                        arguments: {
-                          'Name': _nameController.text,
-                          'Email': _emailController.text,
-                          'Date of Birth': _dobController.text,
-                          'Country': _countryController.text,
-                          'Phone': _mobileNumberController.text,
-                          'Gender': _genderController.text
-                        });
+                        arguments: state.userInfo);
                       }
                       else if (state is Failed){
                         Navigator.pushNamed(context, "/error", arguments: {'message': state.message});
@@ -160,5 +155,26 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       return false;
     }
+  }
+
+  Widget _countriesDropDown(BuildContext context, TextEditingController controller){
+    return BlocProvider(
+      create: (context) => _signupBloc,
+      child: BlocBuilder<SignupBloc,SignupState>(
+        buildWhen: ((previous, current) => previous is! Loaded && current is Loaded),
+        builder: (context, state){
+          if (state is Initial){
+            _signupBloc.add(LoadEvent());
+          }
+          else if (state is Loaded){
+              countries = state.countries;
+              return SelectInputField("Country", countries, controller: controller);
+          }
+          return CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,);
+
+        },
+      )
+
+    );
   }
 }
