@@ -15,3 +15,8 @@ class Registered extends InitializeState {
 }
 
 class NotRegistered extends InitializeState {}
+
+class InitializeError extends InitializeState{
+  String message;
+  InitializeError(this.message);
+}

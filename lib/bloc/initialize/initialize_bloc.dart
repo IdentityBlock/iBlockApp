@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:iblock/bloc/signup/signup_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -27,9 +28,18 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
           var privateKey = await SecureStorageService.get("private-key") as String;
           var contractAddress = await SecureStorageService.get("contract-address") as String;
 
+          try {
+            var userInfo = await UserContractService().getAll(
+                contractAddress, privateKey).timeout(Duration(seconds: 10),
+            onTimeout: (){
+                  throw TimeoutException("Unable to fetch data from blockchain!");
+            });
+            emit(Registered(userInfo));
+          }
+          catch(e){
+            emit(InitializeError(e.toString()));
+          }
 
-          var userInfo = await UserContractService().getAll(contractAddress, privateKey);
-          emit(Registered(userInfo));
         }
         else{
           emit(NotRegistered());

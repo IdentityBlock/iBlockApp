@@ -57,9 +57,11 @@ class _OpeningScreenState extends State<OpeningScreen> {
                   if (state is NoInternetConnection) {
                     Navigator.popAndPushNamed(context, '/error', arguments: {"message": "No internet connection found!"});
                   } else if (state is Registered) {
-                    Navigator.popAndPushNamed(context, '/home');
+                    Navigator.popAndPushNamed(context, '/home', arguments: state.userInfo);
                   } else if (state is NotRegistered) {
                     Navigator.popAndPushNamed(context, '/welcome1');
+                  } else if (state is InitializeError){
+                    Navigator.popAndPushNamed(context, '/error', arguments: {"message": state.message});
                   }
                 },
                 buildWhen: ((previous, current) => previous != current && current is Initial || current is CheckingInternetConnection),

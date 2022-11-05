@@ -7,8 +7,6 @@ import 'package:http/http.dart' as http;
 
 import '../../services/secure_storage_service.dart';
 import '../../services/user_contract_service.dart';
-import '../../utils/accounts.dart';
-import '../../utils/create_ethereum_account.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -47,11 +45,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(Submitted());
       try{
 
-        var privateKey = await CreateEthereumAccount.create();
-        var ethereumAddress = await CreateEthereumAccount.getEthereumAddress(privateKey);
-
         var service = UserContractService();
-        var contractAddress = await service.deploy(ethereumAddress,
+        var result = await service.deploy(
             name: event.name,
             email: event.email,
             dob: event.dob,
@@ -60,8 +55,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             gender: event.gender)
         .timeout(const Duration(seconds: 10),
         onTimeout: (){
-          throw Exception("Failed to deploy you contract");
+          throw Exception("Failed to deploy your contract");
         });
+
+        var privateKey = result['private-key'] as String;
+        var contractAddress = result['contract-address'] as String;
 
         await SecureStorageService.store("private-key", privateKey);
         await SecureStorageService.store("contract-address", contractAddress);
