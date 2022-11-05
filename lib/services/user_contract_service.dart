@@ -55,7 +55,7 @@ class UserContractService{
     }
   }
 
-  Future<String> getName(String contractAddress, String privateKey) async{
+  Future<Map<String, String>> getAll(String contractAddress, String privateKey) async{
     EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
     EthereumAddress sender = await credentials.extractAddress();
@@ -64,16 +64,56 @@ class UserContractService{
 
     DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
 
-    ContractFunction _getName = smartContract.function("getName");
+    ContractFunction getName = smartContract.function("getName");
+    ContractFunction getEmail = smartContract.function("getEmail");
+    ContractFunction getDOB = smartContract.function("getDOB");
+    ContractFunction getMobile = smartContract.function("getMobile");
+    ContractFunction getCountry = smartContract.function("getCountry");
+    ContractFunction getGender = smartContract.function("getGender");
 
     Web3Client web3client = Web3Client(Config.rpcUrl, http.Client(), socketConnector: (){
       return IOWebSocketChannel.connect(Config.wsUrl).cast<String>();
     });
 
-    var result = await web3client.call(contract: smartContract, function: _getName, params: [], sender: sender);
+    try {
+      var name = await web3client.call(contract: smartContract,
+          function: getName,
+          params: [],
+          sender: sender);
+      var email = await web3client.call(contract: smartContract,
+          function: getEmail,
+          params: [],
+          sender: sender);
+      var dob = await web3client.call(contract: smartContract,
+          function: getDOB,
+          params: [],
+          sender: sender);
+      var mobile = await web3client.call(contract: smartContract,
+          function: getMobile,
+          params: [],
+          sender: sender);
+      var country = await web3client.call(contract: smartContract,
+          function: getCountry,
+          params: [],
+          sender: sender);
+      var gender = await web3client.call(contract: smartContract,
+          function: getGender,
+          params: [],
+          sender: sender);
 
-    web3client.dispose();
-    return result[0] as String;
+      web3client.dispose();
+      return {
+        'Name': name[0] as String,
+        'Email': email[0] as String,
+        'Date of Birth': dob[0] as String,
+        'Country': country[0] as String,
+        'Phone': mobile[0] as String,
+        'Gender': gender[0] as String
+      };
+    }
+    catch(e){
+      throw Exception("Non authorized access");
+    }
   }
 
   Object getAbiJson() {
