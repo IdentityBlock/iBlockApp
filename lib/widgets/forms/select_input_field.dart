@@ -4,9 +4,9 @@ class SelectInputField extends StatefulWidget {
   final String label;
   final List<String> options;
   final TextEditingController controller;
-  EdgeInsets padding;
+  final EdgeInsets padding;
 
-  SelectInputField(this.label, this.options,
+  const SelectInputField(this.label, this.options,
       { Key? key,
         required this.controller,
         this.padding =
@@ -49,11 +49,11 @@ class _SelectInputFieldState extends State<SelectInputField> {
         items: widget.options.map((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value),
+            child: SizedBox( width: MediaQuery.of(context).size.width * 0.6 ,child: Text(value),),
           );
         }).toList(),
         onChanged: (String? value) {
-          widget.controller.text = value!;
+          widget.controller.text = value ?? '';
         },
       ),
     );

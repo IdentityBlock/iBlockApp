@@ -5,11 +5,21 @@ abstract class SignupState {}
 
 class Initial extends SignupState {}
 
+class Loading extends SignupState{}
+
+class Loaded extends SignupState{
+  final List<String> countries;
+  Loaded(this.countries);
+}
+
 class Submitted extends SignupState {}
 
-class Success extends SignupState {}
+class Success extends SignupState {
+  final Map<String, String> userInfo;
+  Success(this.userInfo);
+}
 
 class Failed extends SignupState {
-  String message;
+  final String message;
   Failed(this.message);
 }

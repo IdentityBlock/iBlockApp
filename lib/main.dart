@@ -102,7 +102,11 @@ class MyApp extends StatelessWidget {
             builder = (context) => const SignUpPage();
             break;
           case '/error':
-            builder = (context) => ErrorPage();
+            builder = (context) => const ErrorPage();
+            final arguments = settings.arguments as Map<String, Object>;
+            if (arguments.containsKey('message')){
+              builder = (context) => ErrorPage(message: arguments['message'] as String);
+            }
             break;
           default:
             builder = (context) => HomePage();
