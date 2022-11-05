@@ -1,3 +1,0 @@
-[submodule "lib/contracts"]
-	path = lib/contracts
-	url = https://github.com/IdentityBlock/Contracts
