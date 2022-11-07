@@ -16,6 +16,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: () => Navigator.pushNamed(context, '/settings'), icon: const Icon(Icons.settings))
+        ]
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
@@ -56,39 +61,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, '/qrcode-reader');
         },
         child: const Icon(Icons.qr_code),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'New',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        onTap: (int index) {
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/history');
-              break;
-            case 1:
-              showDialog(
-                  context: context,
-                  builder: (context) => AddNewDialog(addNewProperty)
-              );
-              break;
-            case 2:
-              Navigator.pushNamed(context, '/settings');
-              break;
-          }
-        },
-      ),
+      )
     );
   }
 

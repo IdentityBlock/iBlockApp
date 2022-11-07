@@ -115,7 +115,13 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (context) {
           return AlertDialog(
             title: const Text('Recover Account'),
-            content: TextInputField('Enter recovery phrase', controller: TextEditingController(),),
+            content:
+            Column(
+              children: [
+                TextInputField('Enter your private key', controller: TextEditingController()),
+                TextInputField('Enter your contract address', controller: TextEditingController())
+              ],
+            ),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
               ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Submit'))
