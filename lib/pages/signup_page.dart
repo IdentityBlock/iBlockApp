@@ -114,13 +114,19 @@ class _SignUpPageState extends State<SignUpPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            insetPadding: const EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             title: const Text('Recover Account'),
             content:
-            Column(
-              children: [
-                TextInputField('Enter your private key', controller: TextEditingController()),
-                TextInputField('Enter your contract address', controller: TextEditingController())
-              ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                children: [
+                  TextInputField('Enter your private key', controller: TextEditingController()),
+                  TextInputField('Enter your contract address', controller: TextEditingController())
+                ],
+              ),
             ),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
