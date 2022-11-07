@@ -30,7 +30,7 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
 
           try {
             var userInfo = await UserContractService().getAll(
-                contractAddress, privateKey).timeout(Duration(seconds: 10),
+                contractAddress, privateKey).timeout(const Duration(seconds: 10),
             onTimeout: (){
                   throw TimeoutException("Unable to fetch data from blockchain!");
             });

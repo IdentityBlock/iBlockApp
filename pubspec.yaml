@@ -45,6 +45,7 @@ dependencies:
   flutter_secure_storage: ^6.0.0
   bip39: ^1.0.6
   dart_bip32_bip44: ^0.2.0
+  fluttertoast: ^8.1.1
 
 dev_dependencies:
   flutter_test:
