@@ -77,5 +77,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(Failed(error.toString()));
       }
     });
+
+    on<RecoverySubmitEvent>((event, emit) async{
+      emit(RecoverySubmitted());
+      try{
+        var service = UserContractService();
+        var userInfo = await service.getAll(event.contractAddress, event.privateKey)
+            .timeout(const Duration(seconds: 10),
+            onTimeout: (){
+              throw Exception("Failed to fetch your user data");
+            });
+        await SecureStorageService.store("private-key", event.privateKey);
+        await SecureStorageService.store("contract-address", event.contractAddress);
+
+        emit(Success(userInfo));
+      }
+      catch(error){
+        emit(Failed(error.toString()));
+      }
+    });
   }
 }

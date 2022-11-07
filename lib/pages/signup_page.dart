@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/signup/signup_bloc.dart';
-
+import '../widgets/forms/button.dart';
 import '../widgets/forms/date_input_field.dart';
 import '../widgets/forms/select_input_field.dart';
 import '../widgets/forms/text_input_field.dart';
-import '../widgets/forms/button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -24,6 +23,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
+
+  final TextEditingController _privateKeyController = TextEditingController();
+  final TextEditingController _contractAddressController =
+      TextEditingController();
 
   String _validation = "";
   List<String> countries = [];
@@ -63,22 +66,34 @@ class _SignUpPageState extends State<SignUpPage> {
                   create: (context) => _signupBloc,
                   child: BlocListener<SignupBloc, SignupState>(
                     listener: (context, state) {
-                      if (state is Submitted){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Submitting...'),
-                          ),
-                        );
-                      }
-                      else if (state is Success) {
-                        print("Signup succeeded");
-                        Navigator.popAndPushNamed(context, '/home',
-                        arguments: state.userInfo);
-                      }
-                      else if (state is Failed){
-                        Navigator.pushNamed(context, "/error", arguments: {'message': state.message});
-                      }
-                    },
+                      if (state is Submitted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Submitting...'),
+                        ),
+                      );
+                    } else if (state is RecoverySubmitted) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Dialog(
+                                backgroundColor: Colors.transparent,
+                                child: Center(
+                                  child: SizedBox(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      child: CircularProgressIndicator()),
+                                ));
+                          });
+                    } else if (state is Success) {
+                      print("Signup succeeded");
+                      Navigator.popAndPushNamed(context, '/home',
+                          arguments: state.userInfo);
+                    } else if (state is Failed) {
+                      Navigator.pushNamed(context, "/error",
+                          arguments: {'message': state.message});
+                    }
+                  },
                     child: Button('Sign Up', onPressed: () {
                       if (_validateInputs()){
                         _signupBloc.add(SubmitSignupEvent(
@@ -114,17 +129,34 @@ class _SignUpPageState extends State<SignUpPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            insetPadding: const EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             title: const Text('Recover Account'),
             content:
-            Column(
-              children: [
-                TextInputField('Enter your private key', controller: TextEditingController()),
-                TextInputField('Enter your contract address', controller: TextEditingController())
-              ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                children: [
+                  TextInputField('Enter your private key',
+                      controller: _privateKeyController),
+                  TextInputField('Enter your contract address',
+                      controller: _contractAddressController)
+                ],
+              ),
             ),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-              ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Submit'))
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel')),
+              ElevatedButton(
+                  onPressed: () {
+                    _signupBloc.add(RecoverySubmitEvent(
+                        privateKey: _privateKeyController.text,
+                        contractAddress: _contractAddressController.text));
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Submit'))
             ],
           );
         });
