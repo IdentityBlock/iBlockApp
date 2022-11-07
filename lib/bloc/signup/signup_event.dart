@@ -22,3 +22,10 @@ class SubmitSignupEvent extends SignupEvent {
     required this.gender
   });
 }
+
+class RecoverySubmitEvent extends SignupEvent{
+  final String privateKey;
+  final String contractAddress;
+
+  RecoverySubmitEvent({required this.privateKey, required this.contractAddress});
+}

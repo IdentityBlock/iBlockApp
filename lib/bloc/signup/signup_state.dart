@@ -14,6 +14,8 @@ class Loaded extends SignupState{
 
 class Submitted extends SignupState {}
 
+class RecoverySubmitted extends SignupState{}
+
 class Success extends SignupState {
   final Map<String, String> userInfo;
   Success(this.userInfo);
