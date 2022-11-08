@@ -52,7 +52,7 @@ class _OpeningScreenState extends State<OpeningScreen> {
             BlocProvider(
               create: (context) => _initializeBloc,
               child: BlocConsumer<InitializeBloc, InitializeState>(
-                listenWhen: ((previous, current) => previous != current && current is NoInternetConnection || current is Registered || current is NotRegistered),
+                listenWhen: ((previous, current) => previous != current),
                 listener: (BuildContext context, state) {
                   if (state is NoInternetConnection) {
                     Navigator.popAndPushNamed(context, '/error', arguments: {"message": "No internet connection found!"});
