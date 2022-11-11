@@ -103,7 +103,6 @@ class UserContractService{
           params: [],
           sender: sender);
 
-      web3client.dispose();
       return {
         'Name': name[0] as String,
         'Email': email[0] as String,
@@ -116,7 +115,56 @@ class UserContractService{
     catch(e){
       throw Exception("Non authorized access");
     }
+    finally{
+      web3client.dispose();
+    }
   }
+
+  Future<String> _setUserProperty(String setFunctionName, String newValue, {required String contractAddress, required String privateKey}) async {
+    EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
+    EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
+
+    Object abi = await _abiJSON;
+
+    DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
+    ContractFunction setFunction = smartContract.function(setFunctionName);
+
+    Web3Client web3client = Web3Client(Config.rpcUrl, http.Client(), socketConnector: (){
+      return IOWebSocketChannel.connect(Config.wsUrl).cast<String>();
+    });
+
+    try{
+      var transactionId = await web3client.sendTransaction(credentials, Transaction.callContract(contract: smartContract, function: setFunction, parameters: [newValue]));
+      return transactionId;
+    }
+    catch(e){
+      throw Exception("Failed due to $e");
+    }
+    finally{
+      web3client.dispose();
+    }
+  }
+
+  Future<String> setName(String name, {required String contractAddress, required String privateKey}) async{
+    return _setUserProperty("setName", name, contractAddress: contractAddress, privateKey: privateKey);
+  }
+
+  Future<String> setEmail(String email, {required String contractAddress, required String privateKey}) async{
+    return _setUserProperty("setEmail", email, contractAddress: contractAddress, privateKey: privateKey);
+  }
+
+  Future<String> setCountry(String country, {required String contractAddress, required String privateKey}) async{
+    return _setUserProperty("setCountry", country, contractAddress: contractAddress, privateKey: privateKey);
+  }
+
+  Future<String> setMobile(String mobile, {required String contractAddress, required String privateKey}) async{
+    return _setUserProperty("setMobile", mobile, contractAddress: contractAddress, privateKey: privateKey);
+  }
+
+  Future<String> setGender(String gender, {required String contractAddress, required String privateKey}) async{
+    return _setUserProperty("setGender", gender, contractAddress: contractAddress, privateKey: privateKey);
+  }
+
 
   Object getAbiJson() {
     return _abiJSON;
