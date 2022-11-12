@@ -40,6 +40,12 @@ void main(){
     expect(result, {"Name": "test3", "Email": "test@example.com", "Date of Birth": "2000/01/01", "Country": "Sri Lanka", "Phone": "+9412345678", "Gender": "Male"});
 
   });
+  
+  test('Testing verify function', () async{
+    final service = UserContractService();
+    String transactionId = await service.verify("0x1Ff8Ebe435cdD925EE58388c78a6b21f650247B6", "12345",  privateKey: "0xdb7a1fc3433dbe9d11b53357927dbfc80e3f9d5c211c6c29ce49acca3633dbf3", contractAddress: "0x547fda582EeEc9574BFF8Aa768786C15702AE0fD");
+    expect(transactionId, startsWith("0x"));
+  });
 
   group('User contract functons', (){
     final service = UserContractService();
@@ -76,5 +82,10 @@ void main(){
 
     });
 
+    test('Testing verify function', () async{
+      final service = UserContractService();
+      String transactionId = await service.verify("0x1Ff8Ebe435cdD925EE58388c78a6b21f650247B6", "12345",  privateKey: privateKey, contractAddress: contractAddress);
+      expect(transactionId, startsWith("0x"));
+    });
   });
 }

@@ -165,6 +165,34 @@ class UserContractService{
     return _setUserProperty("setGender", gender, contractAddress: contractAddress, privateKey: privateKey);
   }
 
+  Future<String> verify(String verifierContractAddress, String token, {required String contractAddress, required String privateKey}) async{
+    EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
+    EthereumAddress verifierContract = EthereumAddress.fromHex(verifierContractAddress);
+    EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
+
+    Object abi = await _abiJSON;
+
+    DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
+    ContractFunction verifyFunction = smartContract.function("verify");
+
+    Web3Client web3client = Web3Client(Config.rpcUrl, http.Client(), socketConnector: (){
+      return IOWebSocketChannel.connect(Config.wsUrl).cast<String>();
+    });
+
+    try{
+      var transactionId = await web3client.sendTransaction(
+          credentials,
+          Transaction.callContract(contract: smartContract, function: verifyFunction, parameters: [verifierContract, contract, token])
+      );
+      return transactionId;
+    }
+    catch(e){
+      throw Exception("Failed due to $e");
+    }
+    finally{
+      web3client.dispose();
+    }
+  }
 
   Object getAbiJson() {
     return _abiJSON;
