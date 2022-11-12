@@ -94,8 +94,8 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         result = scanData;
       });
-      controller.pauseCamera();
-      Navigator.pushNamed(context, '/qrcode-result', arguments: scanData);
+      controller.pauseCamera()
+          .then((value) => Navigator.pushNamed(context, '/qrcode-result', arguments: scanData));
     });
   }
 
