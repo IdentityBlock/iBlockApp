@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iblock/widgets/covered_loading.dart';
 
 import '../../bloc/signup/signup_bloc.dart';
 import '../widgets/forms/button.dart';
@@ -67,23 +68,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: BlocListener<SignupBloc, SignupState>(
                     listener: (context, state) {
                       if (state is Submitted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Submitting...'),
-                        ),
-                      );
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return const CoveredLoading();
+                            });
                     } else if (state is RecoverySubmitted) {
                       showDialog(
+                          barrierDismissible: false,
                           context: context,
                           builder: (context) {
-                            return const Dialog(
-                                backgroundColor: Colors.transparent,
-                                child: Center(
-                                  child: SizedBox(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      child: CircularProgressIndicator()),
-                                ));
+                            return const CoveredLoading();
                           });
                     } else if (state is Success) {
                       print("Signup succeeded");
