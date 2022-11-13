@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main(){
   test('Testing for abi file', () async{
     final service = UserContractService();
-    Object abi = await service.getAbiJson();
+    Object abi = await service.getAbi();
     print(abi);
   });
   
