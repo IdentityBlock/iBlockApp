@@ -15,10 +15,10 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
   InitializeBloc() : super(Initial()) {
     on<InitializeAppEvent>((event, emit) async{
       emit(Initial());
-      await Future.delayed(const Duration(seconds: 3));
+      //await Future.delayed(const Duration(seconds: 3));
 
       emit(CheckingInternetConnection());
-      await Future.delayed(const Duration(seconds: 3));
+      //await Future.delayed(const Duration(seconds: 3));
 
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {

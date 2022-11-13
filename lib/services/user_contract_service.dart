@@ -8,12 +8,6 @@ import '../config.dart';
 
 class UserContractService{
 
-  late final Object _abiJSON;
-
-  UserContractService() {
-    _abiJSON = _getAbi();
-  }
-
   Future<Map<String, String>> deploy({
     required String name,
     required String email,
@@ -45,7 +39,7 @@ class UserContractService{
     }
   }
 
-  Future<Object> _getAbi() async{
+  Future<Object> getAbi() async{
     // get the abi from calling the application backend
     final response = await http.get(Uri.parse("${Config.backendUrl}/contract"));
     if(response.statusCode == 200){
@@ -62,7 +56,7 @@ class UserContractService{
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
     EthereumAddress sender = await credentials.extractAddress();
 
-    Object abi = await _abiJSON;
+    Object abi = await getAbi();
 
     DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
 
@@ -124,7 +118,7 @@ class UserContractService{
     EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
 
-    Object abi = await _abiJSON;
+    Object abi = await getAbi();
 
     DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
     ContractFunction setFunction = smartContract.function(setFunctionName);
@@ -170,7 +164,7 @@ class UserContractService{
     EthereumAddress verifierContract = EthereumAddress.fromHex(verifierContractAddress);
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
 
-    Object abi = await _abiJSON;
+    Object abi = await getAbi();
 
     DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
     ContractFunction verifyFunction = smartContract.function("verify");
@@ -194,7 +188,4 @@ class UserContractService{
     }
   }
 
-  Object getAbiJson() {
-    return _abiJSON;
-  }
 }
