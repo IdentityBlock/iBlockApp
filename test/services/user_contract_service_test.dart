@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:iblock/services/user_contract_service.dart';
 import 'package:test/test.dart';
 
+// NOTE: given addresses here are from local ganache blockchain server.
 void main(){
   test('Testing for abi file', () async{
     final service = UserContractService();
@@ -45,7 +46,8 @@ void main(){
   
   test('Testing verify function', () async{
     final service = UserContractService();
-    String transactionId = await service.verify("0x1Ff8Ebe435cdD925EE58388c78a6b21f650247B6", "12345",  privateKey: "0xdb7a1fc3433dbe9d11b53357927dbfc80e3f9d5c211c6c29ce49acca3633dbf3", contractAddress: "0x547fda582EeEc9574BFF8Aa768786C15702AE0fD");
+    String transactionId = await service.verify("0x1Ff8Ebe435cdD925EE58388c78a6b21f650247B6", "123456",  privateKey: "0254bc3fa49dcffc96e52e536fa094f9427a82b1fd48f7a1b1b6f40a77bc9d90", contractAddress: "0x9Bfb312Af08fD1C1E39704aBd22C8e28f4CA3eFa");
+    log(transactionId);
     expect(transactionId, startsWith("0x"));
   });
 
@@ -62,7 +64,7 @@ void main(){
       contractAddress = result['contract-address'] as String;
     });
 
-    test('Test fetching details from user contract: called by owner', () async{
+    test('Test fetching details from user contra ct: called by owner', () async{
       final service = UserContractService();
       var result = await service.getAll(contractAddress, privateKey);
       log(result.toString());
