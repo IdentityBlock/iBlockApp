@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iblock/widgets/covered_loading.dart';
@@ -82,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             return const CoveredLoading();
                           });
                     } else if (state is Success) {
-                      print("Signup succeeded");
+                      log("Signup succeeded");
                       Navigator.popAndPushNamed(context, '/home',
                           arguments: state.userInfo);
                     } else if (state is Failed) {
