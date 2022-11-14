@@ -85,8 +85,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           });
                     } else if (state is Success) {
                       log("Signup succeeded");
-                      Navigator.popAndPushNamed(context, '/home',
-                          arguments: state.userInfo);
+                      Navigator.pushNamedAndRemoveUntil(context, '/home',
+                          arguments: state.userInfo, (route)=>false);
                     } else if (state is Failed) {
                       Navigator.pushNamed(context, "/error",
                           arguments: {'message': state.message});
