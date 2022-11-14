@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -36,7 +35,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         }
       }
       catch(e){
-        print(e);
+        log(e.toString());
         emit(Failed("Failed to access internet. Try again later!"));
       }
     });
@@ -74,7 +73,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(Success(userInfo));
       }
       catch(error){
-        print(error.toString());
+        log(error.toString());
         emit(Failed(error.toString()));
       }
     });

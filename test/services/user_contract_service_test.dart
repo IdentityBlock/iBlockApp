@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:iblock/services/user_contract_service.dart';
 import 'package:test/test.dart';
 
@@ -5,21 +7,21 @@ void main(){
   test('Testing for abi file', () async{
     final service = UserContractService();
     Object abi = await service.getAbi();
-    print(abi);
+    log(abi.toString());
   });
   
   test('Testing deployment of user contract', () async{
     final service = UserContractService();
     var result = await service.deploy(name: "test", email: "test@example.com", dob: "2000/01/01", country: "Sri Lanka", mobile: "+9412345678", gender: "Male");
 
-    print(result);
+    log(result.toString());
   });
   
   test('Test fetching details from user contract: called by owner', () async{
     final service = UserContractService();
     var result = await service.getAll("0x547fda582EeEc9574BFF8Aa768786C15702AE0fD",
         "0xdb7a1fc3433dbe9d11b53357927dbfc80e3f9d5c211c6c29ce49acca3633dbf3");
-    print(result);
+    log(result.toString());
     expect(result, {"Name": "test", "Email": "test@example.com", "Date of Birth": "2000/01/01", "Country": "Sri Lanka", "Phone": "+9412345678", "Gender": "Male"});
   });
 
@@ -55,7 +57,7 @@ void main(){
 
       var result = await service.deploy(name: "user1", email: "user1@iblock.com", dob: "2000/01/01", country: "Sri Lanka", mobile: "+9412345678", gender: "Male");
 
-      print(result);
+      log(result.toString());
       privateKey = result['private-key'] as String;
       contractAddress = result['contract-address'] as String;
     });
@@ -63,7 +65,7 @@ void main(){
     test('Test fetching details from user contract: called by owner', () async{
       final service = UserContractService();
       var result = await service.getAll(contractAddress, privateKey);
-      print(result);
+      log(result.toString());
       expect(result, {"Name": "user1", "Email": "user1@iblock.com", "Date of Birth": "2000/01/01", "Country": "Sri Lanka", "Phone": "+9412345678", "Gender": "Male"});
     });
 
