@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -93,6 +94,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(Success(userInfo));
       }
       catch(error){
+        log(error.toString());
         emit(Failed(error.toString()));
       }
     });

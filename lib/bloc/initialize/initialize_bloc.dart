@@ -18,37 +18,44 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
       //await Future.delayed(const Duration(seconds: 3));
 
       emit(CheckingInternetConnection());
+      add(CheckInternetConnection());
       //await Future.delayed(const Duration(seconds: 3));
 
+    });
+
+    on<CheckInternetConnection>((event, emit) async{
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-        bool isPrivateKeyExist = await SecureStorageService.isKeyExist("private-key");
-        bool isContractAddressExist = await SecureStorageService.isKeyExist("contract-address");
-        if (isPrivateKeyExist && isContractAddressExist){
-          var privateKey = await SecureStorageService.get("private-key") as String;
-          var contractAddress = await SecureStorageService.get("contract-address") as String;
-
-          try {
-            var userInfo = await UserContractService().getAll(
-                contractAddress, privateKey).timeout(const Duration(seconds: 10),
-            onTimeout: (){
-                  throw TimeoutException("Unable to fetch data from blockchain!");
-            });
-            emit(Registered(userInfo));
-          }
-          catch(e){
-            emit(InitializeError(e.toString()));
-          }
-
-        }
-        else{
-          emit(NotRegistered());
-        }
+        add(CheckStatus());
       }
       else{
         emit(NoInternetConnection());
       }
+    });
 
+    on<CheckStatus>((event, emit) async{
+      bool isPrivateKeyExist = await SecureStorageService.isKeyExist("private-key");
+      bool isContractAddressExist = await SecureStorageService.isKeyExist("contract-address");
+      if (isPrivateKeyExist && isContractAddressExist){
+        var privateKey = await SecureStorageService.get("private-key") as String;
+        var contractAddress = await SecureStorageService.get("contract-address") as String;
+
+        try {
+          var userInfo = await UserContractService().getAll(
+              contractAddress, privateKey).timeout(const Duration(seconds: 10),
+              onTimeout: (){
+                throw TimeoutException("Unable to fetch data from blockchain!");
+              });
+          emit(Registered(userInfo));
+        }
+        catch(e){
+          emit(InitializeError(e.toString()));
+        }
+
+      }
+      else{
+        emit(NotRegistered());
+      }
     });
   }
 }
