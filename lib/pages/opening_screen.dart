@@ -55,21 +55,34 @@ class _OpeningScreenState extends State<OpeningScreen> {
                 listenWhen: ((previous, current) => previous != current),
                 listener: (BuildContext context, state) {
                   if (state is NoInternetConnection) {
-                    Navigator.popAndPushNamed(context, '/error', arguments: {"message": "No internet connection found!"});
+                    Navigator.popAndPushNamed(context, '/error', arguments: {
+                      "message": "No internet connection found!"
+                    });
                   } else if (state is Registered) {
-                    Navigator.popAndPushNamed(context, '/home', arguments: state.userInfo);
+                    Navigator.popAndPushNamed(context, '/home',
+                        arguments: state.userInfo);
                   } else if (state is NotRegistered) {
                     Navigator.popAndPushNamed(context, '/welcome1');
-                  } else if (state is InitializeError){
-                    Navigator.popAndPushNamed(context, '/error', arguments: {"message": state.message});
+                  } else if (state is Failed) {
+                    Navigator.popAndPushNamed(context, '/error',
+                        arguments: {"message": state.message});
                   }
                 },
-                buildWhen: ((previous, current) => previous != current && current is Initial || current is CheckingInternetConnection),
+                buildWhen: ((previous, current) =>
+                    previous != current &&
+                    (current is Initial ||
+                        current is CheckingInternetConnection ||
+                        current is Authenticating ||
+                        current is Authenticated)),
                 builder: (context, state) {
                   if (state is Initial) {
                     return const Text("Initializing");
                   } else if (state is CheckingInternetConnection) {
                     return const Text("Checking for connectivity");
+                  } else if (state is Authenticating) {
+                    return const Text("Authenticating");
+                  } else if (state is Authenticated) {
+                    return const Text("Authenticated");
                   }
                   return const Text("Something went wrong!");
                 },

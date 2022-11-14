@@ -7,6 +7,10 @@ class Initial extends InitializeState {}
 
 class CheckingInternetConnection extends InitializeState{}
 
+class Authenticating extends InitializeState{}
+
+class Authenticated extends InitializeState{}
+
 class NoInternetConnection extends InitializeState{}
 
 class Registered extends InitializeState {
@@ -16,7 +20,7 @@ class Registered extends InitializeState {
 
 class NotRegistered extends InitializeState {}
 
-class InitializeError extends InitializeState{
-  String message;
-  InitializeError(this.message);
+class Failed extends InitializeState{
+  final String message;
+  Failed(this.message);
 }
