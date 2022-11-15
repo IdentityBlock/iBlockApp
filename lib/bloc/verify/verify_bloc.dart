@@ -21,7 +21,8 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
       }
       catch(error){
         log(error.toString());
-        emit(Failed("Invalid QR code!"));
+        emit(Failed(error.toString()));
+        //emit(Failed("Invalid QR code!"));
       }
     });
 
