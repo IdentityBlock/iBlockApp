@@ -191,7 +191,6 @@ class UserContractService{
       });
       if(response.statusCode == 200){
         var responseJson = jsonDecode(response.body);
-        log(responseJson['txHash']);
         return responseJson['txHash'];
       }
       else{
