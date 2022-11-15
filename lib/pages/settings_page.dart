@@ -66,6 +66,30 @@ class SettingsPage extends StatelessWidget {
                                         CopyableText((snapshot.data! as Map)["contract-address"] as String)
                                       ],
                                     ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    child: Text("Edit your details"),
+                                  ),
+                                  Padding(padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text("Email Address"),
+                                        TextButton(onPressed: (){}, child: const Text("Edit") )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text("Phone"),
+                                        TextButton(onPressed: (){}, child: const Text("Edit") )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
