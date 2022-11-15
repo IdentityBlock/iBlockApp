@@ -180,20 +180,15 @@ class UserContractService{
         parameters: [verifierContract, contract, token],
     );
 
-    var signedTransaction;
     try{
-      signedTransaction = await web3client.signTransaction(credentials, transaction, chainId: Config.chainId);
-    }
-    catch(e){
-      throw Exception("What the hell?");
-    }
+      var signedTransaction = await web3client.signTransaction(credentials, transaction);
+      var signedString = bytesToHex(signedTransaction);
 
-    var signedString = bytesToHex(signedTransaction);
+      log(signedString);
 
-    log(signedString);
-
-    try{
-      final response = await http.get(Uri.parse("${Config.backendUrl}/contract"));
+      final response = await http.post(Uri.parse("${Config.backendUrl}/transact"), body: {
+        "signedTx": signedString
+      });
       if(response.statusCode == 200){
         var responseJson = jsonDecode(response.body);
         log(responseJson['txHash']);
