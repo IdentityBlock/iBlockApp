@@ -38,7 +38,7 @@ class _QRResultPageState extends State<QRResultPage> {
                         Navigator.popAndPushNamed(context, "/error", arguments: {"message": state.message});
                       }
                       else if(state is Verified){
-                        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                        Navigator.popUntil(context, ModalRoute.withName("/home"));
                       }
                     },
                     buildWhen: (previous, current)=> previous != current && (current is QRDetected || current is Submitted),
