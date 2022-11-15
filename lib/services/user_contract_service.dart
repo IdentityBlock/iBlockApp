@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
@@ -163,7 +165,6 @@ class UserContractService{
     EthereumAddress contract = EthereumAddress.fromHex(contractAddress);
     EthereumAddress verifierContract = EthereumAddress.fromHex(verifierContractAddress);
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
-
     Object abi = await getAbi();
 
     DeployedContract smartContract = DeployedContract(ContractAbi.fromJson(jsonEncode(abi), "User"), contract);
@@ -173,12 +174,34 @@ class UserContractService{
       return IOWebSocketChannel.connect(Config.wsUrl).cast<String>();
     });
 
+    var transaction = Transaction.callContract(
+        contract: smartContract,
+        function: verifyFunction,
+        parameters: [verifierContract, contract, token],
+    );
+
+    var signedTransaction;
     try{
-      var transactionId = await web3client.sendTransaction(
-          credentials,
-          Transaction.callContract(contract: smartContract, function: verifyFunction, parameters: [verifierContract, contract, token])
-      );
-      return transactionId;
+      signedTransaction = await web3client.signTransaction(credentials, transaction, chainId: Config.chainId);
+    }
+    catch(e){
+      throw Exception("What the hell?");
+    }
+
+    var signedString = bytesToHex(signedTransaction);
+
+    log(signedString);
+
+    try{
+      final response = await http.get(Uri.parse("${Config.backendUrl}/contract"));
+      if(response.statusCode == 200){
+        var responseJson = jsonDecode(response.body);
+        log(responseJson['txHash']);
+        return responseJson['txHash'];
+      }
+      else{
+        throw Exception("Unable to connect to the backend");
+      }
     }
     catch(e){
       throw Exception("Failed due to $e");
