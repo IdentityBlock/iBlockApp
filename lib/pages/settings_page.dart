@@ -1,123 +1,169 @@
 import 'package:flutter/material.dart';
-import 'package:iblock/services/secure_storage_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/copyable_text.dart';
+import '../bloc/settings/settings_bloc.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final SettingsBloc _settings_bloc = SettingsBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    _settings_bloc.add(LoadEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: loadData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting){
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        else if (snapshot.hasError){
-          Navigator.popAndPushNamed(context, "/error", arguments: {"message": "Encountered an error"});
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        else{
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Settings'),
-            ),
-            body: SafeArea(
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height -100,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Expanded(
-                            flex: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text("Private Key:", style: TextStyle(
-                                            fontWeight: FontWeight.bold
-                                        )),
-                                        CopyableText((snapshot.data! as Map)["private-key"] as String)
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text("Contract Address:", style: TextStyle(
-                                          fontWeight: FontWeight.bold
-                                        ),),
-                                        CopyableText((snapshot.data! as Map)["contract-address"] as String)
-                                      ],
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(bottom: 8.0),
-                                    child: Text("Edit your details"),
-                                  ),
-                                  Padding(padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text("Email Address"),
-                                        TextButton(onPressed: (){}, child: const Text("Edit") )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text("Phone"),
-                                        TextButton(onPressed: (){}, child: const Text("Edit") )
-                                      ],
-                                    ),
-                                  )
-                                ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+      ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height - 100,
+          width: double.infinity,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BlocProvider(
+                      create: (context) => _settings_bloc,
+                      child: BlocConsumer<SettingsBloc, SettingsState>(
+                        listener: (context, state) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, state) {
+                          if (state is Initial || state is Loading) {
+                            return const Center(
+                              child: SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: CircularProgressIndicator(),
                               ),
-                            )),
-                        Expanded(
-                            flex: 1,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text("App version : "),
-                                  Text("v0.1-beta", style: TextStyle(color: Theme.of(context).primaryColor),)
-                                ]))
-                      ],
+                            );
+                          } else if (state is Loaded) {
+                            return userDataView(context, state);
+                          } else {
+                            return const Text("Unexpected Error");
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                )),
-          );
-        }
-      }
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("App version : "),
+                        Text(
+                          "v0.1-beta",
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        )
+                      ]))
+            ],
+          ),
+        ),
+      )),
     );
   }
 
-  Future<Map<String, String>> loadData() async{
-    var privateKey = await SecureStorageService.get("private-key");
-    var contractAddress = await SecureStorageService.get("contract-address");
-    return {
-      "private-key" : privateKey as String,
-      "contract-address": contractAddress as String
-    };
+  Widget userDataView(context, Loaded state) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.red.shade100,
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Notice: To recover your account you will need private key and contract address",
+                  style: TextStyle(color: Colors.red, fontSize: 12.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Private Key:",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    CopyableText((state.privateKey))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Contract Address:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    CopyableText(state.contractAddress)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Edit your details",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(state.email),
+                    TextButton(onPressed: () {}, child: const Text("Edit"))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(state.phone),
+                    TextButton(onPressed: () {}, child: const Text("Edit"))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
