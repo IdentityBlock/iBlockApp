@@ -62,6 +62,7 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
 
           } catch(error) {
             log(error.toString());
+            emit(Failed("Failed to Authenticate"));
           }
         }
         else{

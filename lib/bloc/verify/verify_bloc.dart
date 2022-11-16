@@ -21,7 +21,8 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
       }
       catch(error){
         log(error.toString());
-        emit(Failed("Invalid QR code!"));
+        emit(Failed(error.toString()));
+        //emit(Failed("Invalid QR code!"));
       }
     });
 
@@ -30,9 +31,16 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
 
       try{
         var contractService = UserContractService();
-        var contractAddress = await SecureStorageService.get("contract-address") as String;
-        var privateKey = await SecureStorageService.get("private-key") as String;
-        var transactionID = await contractService.verify(event.verifierContract, event.token, contractAddress: contractAddress, privateKey: privateKey);
+        var contractAddress =
+            await SecureStorageService.get("contract-address") as String;
+        var privateKey =
+            await SecureStorageService.get("private-key") as String;
+        var transactionID = await contractService
+            .verify(event.verifierContract, event.token,
+                contractAddress: contractAddress, privateKey: privateKey)
+            .timeout(const Duration(seconds: 10), onTimeout: () {
+          throw Exception("Unable to process this request. Try again Later!");
+        });
         log(transactionID);
         emit(Verified());
       }
