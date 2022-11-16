@@ -46,7 +46,7 @@ void main(){
   
   test('Testing verify function', () async{
     final service = UserContractService();
-    String transactionId = await service.verify("0x1Ff8Ebe435cdD925EE58388c78a6b21f650247B6", "123456",  privateKey: "0254bc3fa49dcffc96e52e536fa094f9427a82b1fd48f7a1b1b6f40a77bc9d90", contractAddress: "0x9Bfb312Af08fD1C1E39704aBd22C8e28f4CA3eFa");
+    String transactionId = await service.verify("0xf32cfe97272a46291BF81f85dBb01797f0249635", "123456",  privateKey: "0xaf116e5a7fe877b8882ad736395d0371a4f5e822160f16d57e285dfe9132e5b6", contractAddress: "0x9b03DB9C86BE02628558D45356E2220f16BCB6c9");
     log(transactionId);
     expect(transactionId, startsWith("0x"));
   });
