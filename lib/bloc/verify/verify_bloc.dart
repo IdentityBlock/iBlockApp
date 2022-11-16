@@ -38,7 +38,7 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
         var transactionID = await contractService
             .verify(event.verifierContract, event.token,
                 contractAddress: contractAddress, privateKey: privateKey)
-            .timeout(const Duration(seconds: 10), onTimeout: () {
+            .timeout(const Duration(seconds: 30), onTimeout: () {
           throw Exception("Unable to process this request. Try again Later!");
         });
         log(transactionID);

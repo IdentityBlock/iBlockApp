@@ -181,21 +181,12 @@ class UserContractService{
     );
 
     try{
-      var signedTransaction = await web3client.signTransaction(credentials, transaction);
-      var signedString = bytesToHex(signedTransaction);
-
-      log(signedString);
-
-      final response = await http.post(Uri.parse("${Config.backendUrl}/transact"), body: {
-        "signedTx": signedString
-      });
-      if(response.statusCode == 200){
-        var responseJson = jsonDecode(response.body);
-        return responseJson['txHash'];
-      }
-      else{
-        throw Exception("Unable to connect to the backend");
-      }
+      String tx = await web3client.sendTransaction(
+          credentials,
+          transaction,
+          chainId: Config.chainId
+      );
+      return tx;
     }
     catch(e){
       throw Exception("Failed due to $e");
