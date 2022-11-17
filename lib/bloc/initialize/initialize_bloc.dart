@@ -92,6 +92,9 @@ class InitializeBloc extends Bloc<InitializeEvent, InitializeState> {
         }
 
       }
+      else if(isPrivateKeyExist){
+        emit(PartiallyRegistered());
+      }
       else{
         emit(NotRegistered());
       }

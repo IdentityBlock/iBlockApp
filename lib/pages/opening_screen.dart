@@ -61,6 +61,8 @@ class _OpeningScreenState extends State<OpeningScreen> {
                   } else if (state is Registered) {
                     Navigator.popAndPushNamed(context, '/home',
                         arguments: state.userInfo);
+                  } else if (state is PartiallyRegistered) {
+                    Navigator.popAndPushNamed(context, '/enter-address');
                   } else if (state is NotRegistered) {
                     Navigator.popAndPushNamed(context, '/welcome1');
                   } else if (state is Failed) {
