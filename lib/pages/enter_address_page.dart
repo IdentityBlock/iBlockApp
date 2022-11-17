@@ -30,6 +30,7 @@ class _EnterAddressPageState extends State<EnterAddressPage> {
       body: BlocProvider(
         create: (context) => _signupBloc,
         child: BlocConsumer<SignupBloc, SignupState>(
+          listenWhen: (previous, current)=> previous != current && current is! PrivateKeyStored,
           listener: (context, state) {
             if (state is Success) {
               Navigator.pushNamedAndRemoveUntil(
@@ -43,7 +44,7 @@ class _EnterAddressPageState extends State<EnterAddressPage> {
               Navigator.popAndPushNamed(context, "/error", arguments: {"message": "unexpected Error"});
             }
           },
-          buildWhen: (previous, current)=> previous != current && current is PrivateKeyStored || current is Loading,
+          buildWhen: (previous, current)=> previous != current && current is PrivateKeyStored || current is Loading || current is Initial,
           builder: (context, state){
             if (state is PrivateKeyStored){
               return SafeArea(
@@ -94,7 +95,7 @@ class _EnterAddressPageState extends State<EnterAddressPage> {
                 ),
               );
             }
-            else if (state is Loading){
+            else if (state is Loading || state is Initial){
               return const CoveredLoading();
             }
             else{
