@@ -83,7 +83,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           builder: (context) {
                             return const CoveredLoading();
                           });
-                    } else if (state is Success) {
+                    } else if (state is PrivateKeyStored) {
+                      Navigator.pushNamedAndRemoveUntil(context, '/enter-address', (router)=> false);
+                    }  else if (state is Success) {
                       log("Signup succeeded");
                       Navigator.pushNamedAndRemoveUntil(context, '/home',
                           arguments: state.userInfo, (route)=>false);

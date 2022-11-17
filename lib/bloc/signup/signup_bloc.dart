@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:iblock/bloc/initialize/initialize_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
@@ -59,22 +60,41 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         });
 
         var privateKey = result['private-key'] as String;
-        var contractAddress = result['contract-address'] as String;
 
         await SecureStorageService.store("private-key", privateKey);
-        await SecureStorageService.store("contract-address", contractAddress);
 
-        var userInfo = await service.getAll(contractAddress, privateKey)
-            .timeout(const Duration(seconds: 10),
-          onTimeout: (){
-              throw Exception("Failed to fetch your user data");
-          });
-
-        emit(Success(userInfo));
+        emit(PrivateKeyStored());
       }
       catch(error){
         log(error.toString());
         emit(Failed(error.toString()));
+      }
+    });
+
+    on<AcceptingContractAddressEvent>((event, emit){
+      emit(PrivateKeyStored());
+    });
+
+    on<ContractAddressSubmitEvent>((event, emit) async{
+      emit(Loading());
+
+      try {
+        var service = UserContractService();
+        var privateKey = await SecureStorageService.get("private-key") as String;
+
+        var userInfo = await service.getAll(event.contractAddress, privateKey)
+            .timeout(const Duration(seconds: 10),
+            onTimeout: (){
+              throw Exception("Failed to fetch your user data");
+            });
+
+        await SecureStorageService.store("contract-address", event.contractAddress);
+        emit(Success(userInfo));
+
+      }
+      catch(e){
+        log(e.toString());
+        Failed(e.toString());
       }
     });
 

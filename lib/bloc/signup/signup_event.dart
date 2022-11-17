@@ -23,6 +23,13 @@ class SubmitSignupEvent extends SignupEvent {
   });
 }
 
+class AcceptingContractAddressEvent extends SignupEvent{}
+
+class ContractAddressSubmitEvent extends SignupEvent{
+  final String contractAddress;
+  ContractAddressSubmitEvent({required this.contractAddress});
+}
+
 class RecoverySubmitEvent extends SignupEvent{
   final String privateKey;
   final String contractAddress;

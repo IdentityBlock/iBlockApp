@@ -18,6 +18,8 @@ class Registered extends InitializeState {
   Registered(this.userInfo);
 }
 
+class PartiallyRegistered extends InitializeState{}
+
 class NotRegistered extends InitializeState {}
 
 class Failed extends InitializeState{

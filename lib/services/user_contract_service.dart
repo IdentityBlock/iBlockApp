@@ -32,8 +32,7 @@ class UserContractService{
     if(response.statusCode == 200){
       var responseJson = jsonDecode(response.body);
       return {
-        'private-key': responseJson['private-key'],
-        'contract-address': responseJson['contract-address']
+        'private-key': responseJson['private-key']
       };
     }
     else{
