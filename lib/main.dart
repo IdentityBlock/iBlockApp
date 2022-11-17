@@ -12,6 +12,7 @@ import './pages/welcome_pages/welcome_screen1.dart';
 import './pages/welcome_pages/welcome_screen2.dart';
 import './pages/welcome_pages/welcome_screen3.dart';
 import './pages/error_page.dart';
+import './pages/enter_address_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -100,6 +101,9 @@ class MyApp extends StatelessWidget {
             break;
           case '/signup':
             builder = (context) => const SignUpPage();
+            break;
+          case '/enter-address':
+            builder = (context) => const EnterAddressPage();
             break;
           case '/error':
             builder = (context) => const ErrorPage();
