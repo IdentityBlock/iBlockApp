@@ -30,7 +30,7 @@ class _EnterAddressPageState extends State<EnterAddressPage> {
       body: BlocProvider(
         create: (context) => _signupBloc,
         child: BlocConsumer<SignupBloc, SignupState>(
-          listenWhen: (previous, current)=> previous != current && current is! PrivateKeyStored,
+          listenWhen: (previous, current)=> previous != current && current is Success || current is Failed,
           listener: (context, state) {
             if (state is Success) {
               Navigator.pushNamedAndRemoveUntil(
