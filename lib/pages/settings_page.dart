@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-import '../config.dart';
 import '../../widgets/copyable_text.dart';
+import '../../widgets/edit_dialog.dart';
 import '../bloc/settings/settings_bloc.dart';
+import '../config.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -146,7 +150,31 @@ class _SettingsPageState extends State<SettingsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(state.email),
-                    TextButton(onPressed: () {}, child: const Text("Edit"))
+                    TextButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => EditDialog(
+                                  "email",
+                                  (value) {
+                                    final emailPattern = RegExp(r"^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+                                    if(! emailPattern.hasMatch(value)){
+                                      Fluttertoast.showToast(msg: "Invalid Email Address Provided");
+                                    }
+                                    else{
+                                      _settings_bloc.add(EditEvent(
+                                          "email",
+                                          privateKey: state.privateKey,
+                                          contractAddress: state.contractAddress,
+                                          email: value,
+                                          phone: state.phone));
+                                    }
+
+                                  }
+                              )
+                          );
+                        },
+                        child: const Text("Edit"))
                   ],
                 ),
               ),
@@ -157,7 +185,29 @@ class _SettingsPageState extends State<SettingsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(state.phone),
-                    TextButton(onPressed: () {}, child: const Text("Edit"))
+                    TextButton(onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => EditDialog(
+                              "phone number",
+                                  (value) {
+                                    final phoneNumberPattern = RegExp(r"^\+[0-9]{10,11}$");
+                                if(! phoneNumberPattern.hasMatch(value)){
+                                  Fluttertoast.showToast(msg: "Invalid phone number provided");
+                                }
+                                else{
+                                  _settings_bloc.add(EditEvent(
+                                      "phone",
+                                      privateKey: state.privateKey,
+                                      contractAddress: state.contractAddress,
+                                      email: state.email,
+                                      phone: value));
+                                }
+
+                              }
+                          )
+                      );
+                    }, child: const Text("Edit"))
                   ],
                 ),
               ),

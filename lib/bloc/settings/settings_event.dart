@@ -5,14 +5,13 @@ abstract class SettingsEvent {}
 
 class LoadEvent extends SettingsEvent{}
 
-class EditEmail extends SettingsEvent{
-  final String newEmail;
-  EditEmail(this.newEmail);
+class EditEvent extends SettingsEvent{
+  final String editedProperty;
+  final String privateKey;
+  final String contractAddress;
+  final String email;
+  final String phone;
+  EditEvent(this.editedProperty, {required this.privateKey, required this.contractAddress, required this.email, required this.phone});
 }
 
 class VerifyEmail extends SettingsEvent{}
-
-class EditPhone extends SettingsEvent{
-  final String newPhone;
-  EditPhone(this.newPhone);
-}

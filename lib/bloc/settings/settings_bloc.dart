@@ -25,8 +25,24 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           phone: userInfo['Phone'] as String));
     });
 
-    on<EditEmail>((event, emit) {});
-
-    on<VerifyEmail>((event, emit) {});
+    on<EditEvent>((event, emit) async {
+      emit(Loading());
+      try{
+        var service = UserContractService();
+        if (event.editedProperty == "email"){
+          await service.setEmail(event.email, contractAddress: event.contractAddress, privateKey: event.privateKey);
+        }
+        else if(event.editedProperty == "phone"){
+          await service.setMobile(event.phone, contractAddress: event.contractAddress, privateKey: event.privateKey);
+        }
+        else{
+          throw Exception("Unexpected Error");
+        }
+        emit(Loaded(privateKey: event.privateKey, contractAddress: event.contractAddress, email: event.email, phone: event.phone));
+      }
+      catch(e){
+        emit(Failed(e.toString()));
+      }
+    });
   }
 }

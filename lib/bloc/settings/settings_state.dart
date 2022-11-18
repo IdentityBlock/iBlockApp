@@ -14,3 +14,8 @@ class Loaded extends SettingsState{
   final String phone;
   Loaded({required this.privateKey, required this.contractAddress, required this.email, required this.phone});
 }
+
+class Failed extends SettingsState {
+  final String message;
+  Failed(this.message);
+}
