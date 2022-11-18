@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:iblock/widgets/forms/text_input_field.dart';
 
-class AddNewDialog extends StatefulWidget {
+class EditDialog extends StatefulWidget {
+  final String property;
   Function onSubmit;
-  AddNewDialog(this.onSubmit,{Key? key}) : super(key: key);
+  EditDialog(this.property, this.onSubmit,{Key? key}) : super(key: key);
 
   @override
-  State<AddNewDialog> createState() => _AddNewDialogState();
+  State<EditDialog> createState() => _EditDialogState();
 }
 
-class _AddNewDialogState extends State<AddNewDialog> {
-  TextEditingController propertyText = TextEditingController();
+class _EditDialogState extends State<EditDialog> {
   TextEditingController valueText =TextEditingController() ;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add New Entry'),
+      title: const Text('Edit'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextInputField("Property Name", padding: const EdgeInsets.all(8), controller: propertyText),
-          TextInputField("Property Value", padding: const EdgeInsets.all(8), controller: valueText),
+          TextInputField("New ${widget.property}", padding: const EdgeInsets.all(8), controller: valueText),
         ],
       ),
       actions: [
@@ -33,10 +32,10 @@ class _AddNewDialogState extends State<AddNewDialog> {
         ),
         TextButton(
           onPressed: () {
-            widget.onSubmit(propertyText.text, valueText.text);
+            widget.onSubmit(valueText.text.trim());
             Navigator.pop(context);
           },
-          child: const Text('Add'),
+          child: const Text('Edit'),
         ),
       ],
     );
