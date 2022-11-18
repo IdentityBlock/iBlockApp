@@ -55,7 +55,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             gender: event.gender)
         .timeout(const Duration(seconds: 10),
         onTimeout: (){
-          throw Exception("Failed to deploy your contract");
+          throw Exception("Failed to connect to the backend");
         });
 
         var privateKey = result['private-key'] as String;
