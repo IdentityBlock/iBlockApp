@@ -30,6 +30,8 @@ class ContractAddressSubmitEvent extends SignupEvent{
   ContractAddressSubmitEvent({required this.contractAddress});
 }
 
+class StartOverEvent extends SignupEvent{}
+
 class RecoverySubmitEvent extends SignupEvent{
   final String privateKey;
   final String contractAddress;

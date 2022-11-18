@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../config.dart';
 import '../../widgets/copyable_text.dart';
 import '../bloc/settings/settings_bloc.dart';
 
@@ -71,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         const Text("App version : "),
                         Text(
-                          "v0.1-beta",
+                          Config.VERSION,
                           style:
                               TextStyle(color: Theme.of(context).primaryColor),
                         )

@@ -164,7 +164,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _validateInputs(){
     String message = "";
-    final emailPattern = RegExp(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+    final emailPattern = RegExp(r"^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
     final phoneNumberPattern = RegExp(r"^\+[0-9]{10,11}$");
     //check for empty fields
     if (_nameController.text == ""){
