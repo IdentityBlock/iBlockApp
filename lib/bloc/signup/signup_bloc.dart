@@ -55,14 +55,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             gender: event.gender)
         .timeout(const Duration(seconds: 10),
         onTimeout: (){
-          throw Exception("Failed to deploy your contract");
+          throw Exception("Failed to connect to the backend");
         });
 
         var privateKey = result['private-key'] as String;
 
         await SecureStorageService.store("private-key", privateKey);
+        await SecureStorageService.store("user-email", event.email);
 
-        emit(PrivateKeyStored());
+        emit(PrivateKeyStored(event.email));
       }
       catch(error){
         log(error.toString());
@@ -70,8 +71,21 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       }
     });
 
-    on<AcceptingContractAddressEvent>((event, emit){
-      emit(PrivateKeyStored());
+    on<AcceptingContractAddressEvent>((event, emit) async{
+      var email = await SecureStorageService.get("user-email");
+      if (email != null) {
+        emit(PrivateKeyStored(email));
+      }
+      else {
+        emit(Failed("Email not found"));
+      }
+    });
+
+    on<StartOverEvent>((event, emit) async{
+      emit(Loading());
+      await SecureStorageService.delete("private-key");
+      await SecureStorageService.delete("user-email");
+      emit(Initial());
     });
 
     on<ContractAddressSubmitEvent>((event, emit) async{

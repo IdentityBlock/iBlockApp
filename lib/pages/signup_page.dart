@@ -50,17 +50,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 50,
                 child: Image.asset('assets/images/icon.png'),
               ),
-              Padding(
-                  padding: const EdgeInsets.all(10),
+              const Padding(
+                  padding: EdgeInsets.all(10),
                   child: Text(
                     'Sign Up',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   )),
               TextInputField('Full Name', controller: _nameController),
               TextInputField('Email', controller: _emailController),
               DateInputField('Date of Birth', controller: _dobController),
               _countriesDropDown(context, _countryController),
-              TextInputField('Mobile Number', controller: _mobileNumberController),
+              TextInputField('Mobile Number', controller: _mobileNumberController, helpText: "Accepting format +94123456789",),
               SelectInputField('Gender', const ['Male', 'Female', 'Other'], controller: _genderController),
               const SizedBox(height: 10,),
               Text(_validation, style: const TextStyle(color: Colors.red),),
@@ -164,6 +164,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _validateInputs(){
     String message = "";
+    final emailPattern = RegExp(r"^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+    final phoneNumberPattern = RegExp(r"^\+[0-9]{10,11}$");
     //check for empty fields
     if (_nameController.text == ""){
       message = "Name field cannot be empty";
@@ -182,6 +184,12 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     else if (_genderController.text == ""){
       message = "Gender field cannot be empty";
+    }
+    else if(! emailPattern.hasMatch(_emailController.text)){
+      message = "Not a valid email address";
+    }
+    else if(! phoneNumberPattern.hasMatch(_mobileNumberController.text)){
+      message = "Mobile number is not in valid format";
     }
 
     if(message == ""){

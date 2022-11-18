@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/add_new_dialog.dart';
-
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 

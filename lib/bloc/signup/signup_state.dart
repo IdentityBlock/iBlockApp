@@ -16,7 +16,10 @@ class Submitted extends SignupState {}
 
 class RecoverySubmitted extends SignupState{}
 
-class PrivateKeyStored extends SignupState{}
+class PrivateKeyStored extends SignupState{
+  final String email;
+  PrivateKeyStored(this.email);
+}
 
 class Success extends SignupState {
   final Map<String, String> userInfo;
