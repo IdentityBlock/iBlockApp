@@ -7,6 +7,7 @@ import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
 
 import '../config.dart';
+import '../secrets.dart';
 
 class UserContractService{
 
@@ -20,6 +21,10 @@ class UserContractService{
   }) async{
     // return the address of deployed contract
     final response = await http.post(Uri.parse("${Config.backendUrl}/contract"),
+        headers: {
+          "apiKey" : APIKEY,
+          "Content-Type": "application/json"
+        },
                         body: {
                           "name": name,
                           "email": email,
@@ -42,7 +47,12 @@ class UserContractService{
 
   Future<Object> getAbi() async{
     // get the abi from calling the application backend
-    final response = await http.get(Uri.parse("${Config.backendUrl}/contract"));
+    final response = await http.get(
+        Uri.parse("${Config.backendUrl}/contract"),
+        headers: {
+          "apiKey" : APIKEY
+        }
+    );
     if(response.statusCode == 200){
       var responseJson = jsonDecode(response.body);
       return responseJson['data'];
