@@ -93,7 +93,7 @@ class _QRResultPageState extends State<QRResultPage> {
                                   children: [
                                     Padding(padding: const EdgeInsets.all(2.0),
                                         child: Button("Approve", onPressed: () async{
-                                          _verifyBloc.add(Verify(state.verifierContractAddress, state.token));
+                                          _verifyBloc.add(Verify(state.verifierName, state.verifierContractAddress, state.token));
                                         },)),
                                     Padding(padding: const EdgeInsets.all(2.0),
                                         child: Button("Decline", onPressed: () {

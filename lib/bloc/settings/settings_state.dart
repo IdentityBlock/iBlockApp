@@ -15,6 +15,11 @@ class Loaded extends SettingsState{
   Loaded({required this.privateKey, required this.contractAddress, required this.email, required this.phone});
 }
 
+class HistoryLoaded extends SettingsState{
+  final List<HistoryRecord> records;
+  HistoryLoaded(this.records);
+}
+
 class Failed extends SettingsState {
   final String message;
   Failed(this.message);

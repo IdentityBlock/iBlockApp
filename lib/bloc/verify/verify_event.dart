@@ -8,8 +8,9 @@ class QRDetectedEvent extends VerifyEvent{
   QRDetectedEvent(this.qrCode);
 }
 class Verify extends VerifyEvent{
+  final String verifierName;
   final String verifierContract;
   final String token;
 
-  Verify(this.verifierContract, this.token);
+  Verify(this.verifierName, this.verifierContract, this.token);
 }
