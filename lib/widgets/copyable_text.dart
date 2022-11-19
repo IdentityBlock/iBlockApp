@@ -23,7 +23,8 @@ class CopyableText extends StatelessWidget {
           Expanded(
             flex: 9,
             child: Text(value,
-            overflow: TextOverflow.fade,),
+            overflow: TextOverflow.fade,
+            style: const TextStyle(fontSize: 12),),
           ),
           Expanded(
             flex: 1,
