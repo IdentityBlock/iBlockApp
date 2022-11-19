@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../widgets/forms/button.dart';
@@ -38,6 +39,11 @@ class _QRResultPageState extends State<QRResultPage> {
                         Navigator.popAndPushNamed(context, "/error", arguments: {"message": state.message});
                       }
                       else if(state is Verified){
+                        Fluttertoast.showToast(
+                            msg: "Verified ${state.verifier}",
+                            gravity: ToastGravity.CENTER,
+                            toastLength: Toast.LENGTH_SHORT
+                        );
                         Navigator.popUntil(context, ModalRoute.withName("/home"));
                       }
                     },

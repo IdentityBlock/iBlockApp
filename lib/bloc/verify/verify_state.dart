@@ -14,7 +14,10 @@ class QRDetected extends VerifyState{
 
 class Submitted extends VerifyState{}
 
-class Verified extends VerifyState{}
+class Verified extends VerifyState{
+  final String verifier;
+  Verified(this.verifier);
+}
 
 class Failed extends VerifyState{
   final String message;
