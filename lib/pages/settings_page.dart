@@ -40,7 +40,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 create: (context) => _settings_bloc,
                 child: BlocConsumer<SettingsBloc, SettingsState>(
                   listener: (context, state) {
-                    // TODO: implement listener
+                    if(state is Failed){
+                      Navigator.popAndPushNamed(context, '/error', arguments: {
+                        "message": state.message
+                      });
+                    }
                   },
                   builder: (context, state) {
                     if (state is Initial || state is Loading) {
