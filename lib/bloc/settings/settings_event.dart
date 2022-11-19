@@ -5,6 +5,8 @@ abstract class SettingsEvent {}
 
 class LoadEvent extends SettingsEvent{}
 
+class LoadHistoryEvent extends SettingsEvent{}
+
 class EditEvent extends SettingsEvent{
   final String editedProperty;
   final String privateKey;

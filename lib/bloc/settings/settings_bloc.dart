@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../services/history_logging_service.dart';
 import '../../services/secure_storage_service.dart';
 import '../../services/user_contract_service.dart';
 

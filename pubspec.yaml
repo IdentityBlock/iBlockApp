@@ -48,6 +48,7 @@ dependencies:
   fluttertoast: ^8.1.1
   local_auth: ^2.1.2
   url_launcher: ^6.1.6
+  sqflite: ^2.2.0+3
 
 dev_dependencies:
   flutter_test:

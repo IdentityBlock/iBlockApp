@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:iblock/services/history_logging_service.dart';
 import 'package:meta/meta.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -42,6 +43,11 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
           throw Exception("Unable to process this request. Try again Later!");
         });
         log(transactionID);
+
+        var loggingService = HistoryLoggingService();
+        loggingService.open();
+        loggingService.insert(HistoryRecord(txhash: transactionID, verifierName: event.verifierName, verifierContractAddress: event.verifierContract));
+        loggingService.close();
         emit(Verified());
       }
       catch(error){
