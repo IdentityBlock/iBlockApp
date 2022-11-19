@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:http/http.dart' as http;
 
 import '../config.dart';
 import '../secrets.dart';
@@ -140,7 +140,8 @@ class UserContractService {
           Transaction.callContract(
               contract: smartContract,
               function: setFunction,
-              parameters: [newValue]));
+              parameters: [newValue]),
+          chainId: Config.chainId);
       return transactionId;
     } catch (e) {
       throw Exception("Failed due to $e");

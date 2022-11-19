@@ -88,16 +88,16 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: Colors.red.shade100,
-              borderRadius: const BorderRadius.all(Radius.circular(5))),
+              color: MediaQuery.of(context).platformBrightness == Brightness.light? Colors.red.shade100 : Colors.red.shade900,
+              borderRadius: const BorderRadius.all(Radius.circular(16))),
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
                   "Notice: To recover your account you will need private key and contract address",
-                  style: TextStyle(color: Colors.red, fontSize: 12.0),
+                  style: TextStyle(color: MediaQuery.of(context).platformBrightness == Brightness.light? Colors.red: Colors.grey, fontSize: 12.0),
                 ),
               ),
               Padding(
