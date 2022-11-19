@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,56 +31,49 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - 100,
-          width: double.infinity,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
+        child: Column(
+          children: [
+            Container(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocProvider(
+                create: (context) => _settings_bloc,
+                child: BlocConsumer<SettingsBloc, SettingsState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    if (state is Initial || state is Loading) {
+                      return const Center(
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else if (state is Loaded) {
+                      return userDataView(context, state);
+                    } else {
+                      return const Text("Unexpected Error");
+                    }
+                  },
+                ),
               ),
-              Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BlocProvider(
-                      create: (context) => _settings_bloc,
-                      child: BlocConsumer<SettingsBloc, SettingsState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          if (state is Initial || state is Loading) {
-                            return const Center(
-                              child: SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          } else if (state is Loaded) {
-                            return userDataView(context, state);
-                          } else {
-                            return const Text("Unexpected Error");
-                          }
-                        },
-                      ),
-                    ),
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("App version : "),
-                        Text(
-                          Config.VERSION,
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        )
-                      ]))
-            ],
-          ),
+            )),
+            Padding(
+                padding:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? const EdgeInsets.only(top: 60.0)
+                        : const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Text("App version : "),
+                  Text(
+                    Config.VERSION,
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  )
+                ]))
+          ],
         ),
       )),
     );
