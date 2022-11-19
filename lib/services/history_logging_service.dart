@@ -22,7 +22,7 @@ class HistoryRecord {
 
   HistoryRecord({this.txhash="", this.verifierName = "", this.verifierContractAddress=""});
 
-  HistoryRecord fromMap(Map<String, String> map) {
+  HistoryRecord fromMap(Map<dynamic, dynamic> map) {
     txhash = map[txhashColumn] as String;
     verifierName = map[verifierNameColumn] as String;
     verifierContractAddress = map[verifierContractAddressColumn] as String;
@@ -35,7 +35,7 @@ class HistoryLoggingService {
 
   Future open() async {
     WidgetsFlutterBinding.ensureInitialized();
-    var path = '${await getDatabasesPath()}/logs.db';
+    var path = 'assets/db/log.db';
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -65,7 +65,7 @@ create table if not exists $table (
 
     return maps.map((e) {
       HistoryRecord record = HistoryRecord();
-      record.fromMap(e as Map<String, String>);
+      record.fromMap(e);
       return record;
     }).toList();
   }

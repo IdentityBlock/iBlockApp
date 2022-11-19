@@ -45,9 +45,9 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
         log(transactionID);
 
         var loggingService = HistoryLoggingService();
-        loggingService.open();
-        loggingService.insert(HistoryRecord(txhash: transactionID, verifierName: event.verifierName, verifierContractAddress: event.verifierContract));
-        loggingService.close();
+        await loggingService.open();
+        await loggingService.insert(HistoryRecord(txhash: transactionID, verifierName: event.verifierName, verifierContractAddress: event.verifierContract));
+        await loggingService.close();
         emit(Verified());
       }
       catch(error){

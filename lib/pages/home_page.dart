@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(onPressed: () => Navigator.pushNamed(context, '/history'), icon: const Icon(Icons.history_rounded)),
           IconButton(onPressed: () => Navigator.pushNamed(context, '/settings'), icon: const Icon(Icons.settings))
         ]
       ),

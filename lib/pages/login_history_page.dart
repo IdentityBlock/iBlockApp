@@ -14,6 +14,13 @@ class LoginHistoryPage extends StatefulWidget {
 
 class _LoginHistoryPageState extends State<LoginHistoryPage> {
   final SettingsBloc _settingsBloc = SettingsBloc();
+
+  @override
+  void initState() {
+    _settingsBloc.add(LoadHistoryEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +33,14 @@ class _LoginHistoryPageState extends State<LoginHistoryPage> {
               create: (context) => _settingsBloc,
               child: BlocConsumer<SettingsBloc, SettingsState>(
                 listenWhen: (previous, current) => previous != current,
-                listener: (context, state) {},
-                buildWhen: (previous, current) => previous != current,
+                listener: (context, state) {
+                  if (state is Failed){
+                    Navigator.of(context).popAndPushNamed('/error', arguments: {
+                      "message": state.message
+                    });
+                  }
+                },
+                buildWhen: (previous, current) => previous != current && current is Loading || current is HistoryLoaded,
                 builder: (context, state) {
                   if (state is Loading) {
                     return const CoveredLoading();

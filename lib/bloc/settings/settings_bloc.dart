@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -54,6 +56,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       catch(e){
         emit(Failed(e.toString()));
       }
+    });
+
+    on<LoadHistoryEvent>((event, emit) async{
+      emit(Loading());
+      try{
+        var loggingService = HistoryLoggingService();
+        await loggingService.open();
+        var records = await loggingService.getAll();
+        await loggingService.close();
+        emit(HistoryLoaded(records));
+      }
+      catch(e){
+        log(e.toString());
+        emit(Failed(e.toString()));
+      }
+
     });
   }
 }
