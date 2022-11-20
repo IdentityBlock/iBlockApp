@@ -46,7 +46,9 @@ class _LoginHistoryPageState extends State<LoginHistoryPage> {
                     return const CoveredLoading();
                   } else if (state is HistoryLoaded) {
                     return Column(
-                      children: state.records.map((e) {
+                      children: (state.records.isEmpty)?
+                          [SizedBox(height: MediaQuery.of(context).size.height*0.8, child: const Center(child: Text("No Data Found"),))]
+                          :state.records.map((e) {
                         return HistoryRecord(
                             txhash: e.txhash,
                             verifierName: e.verifierName,
