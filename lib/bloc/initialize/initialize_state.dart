@@ -13,6 +13,8 @@ class Authenticated extends InitializeState{}
 
 class NoInternetConnection extends InitializeState{}
 
+class Loading extends InitializeState{}
+
 class Registered extends InitializeState {
   final Map<String, String> userInfo;
   Registered(this.userInfo);

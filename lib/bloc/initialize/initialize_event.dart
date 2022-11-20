@@ -10,3 +10,10 @@ class CheckInternetConnection extends InitializeEvent{}
 class AuthenticateEvent extends InitializeEvent{}
 
 class CheckStatus extends InitializeEvent{}
+
+class LoadUserInfoEvent extends InitializeEvent{}
+
+class SetUserInfoEvent extends InitializeEvent{
+  final Map<String, String> userInfo;
+  SetUserInfoEvent(this.userInfo);
+}
