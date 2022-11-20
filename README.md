@@ -5,6 +5,21 @@ Source code for the mobile application of the `iBlock` person verification digit
 ### Objective
 Provide a user-friendly interface to interact with the platform.
 
+### Directory Structure
+Since project uses Flutter framework directories are organized according to it. The development is completely inside `/lib` directory.
+<br/>
+Overview of files and directories in `/lib`
+* `main.dart` - Handling theming, routing of the application.
+* `config.dart` - Configurations for the application.
+* `/bloc` - Contains all business logics for the application. The project is using [flutter_bloc](https://pub.dev/packages/flutter_bloc) library for state management.
+  * `/initialize` - contains all business logic, states, events related to initializing the app.
+  * `/signup` - contains all business logic, states, events used for signup process (including the recovery).
+  * `/settings` - contains all business logic, states, events for handle settings of the application.
+  * `/verify` - contains all business logic, states, events for handle verify process.
+* `/pages` - Contains files for render the screens in the app.
+* `/widgets` - Contains all supporting widgets created.
+* `/services` - Contains all services created to support the application activities.
+
 ### Configurations
 App can be configured to be used in any ethereum based testnet. To configure edit the `lib/config.dart` file.
 Following is a sample configuration to link with local ganache server

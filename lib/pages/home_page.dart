@@ -81,8 +81,11 @@ class _HomePageState extends State<HomePage> {
                           ],
                         );
                       } else if (state is Loading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         );
                       } else {
                         return const Center(

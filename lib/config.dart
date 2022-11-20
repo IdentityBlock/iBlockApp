@@ -8,7 +8,7 @@ class Config{
 
   static const String backendUrl = "https://iblock-sever.herokuapp.com";
 
-  static const String VERSION = 'v1.0.0';
+  static const String VERSION = 'v1.1.1';
 
 
 }
