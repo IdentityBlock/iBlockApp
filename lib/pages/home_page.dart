@@ -36,59 +36,64 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.settings))
         ]),
         body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-              width: double.infinity,
-              child: BlocProvider(
-                create: (context) => _initializeBloc,
-                child: BlocBuilder<InitializeBloc, InitializeState>(
-                  builder: (context, state) {
-                    if (state is Registered) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image(
-                            image:
-                                Image.asset('assets/images/profile.png').image,
-                            width: 100,
-                            height: 100,
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                state.userInfo["Name"]!,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              )),
-                          Table(
-                              children: state.userInfo.entries
-                                  .map((e) => TableRow(children: [
-                                        Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Text(e.key,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold))),
-                                        Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Text(e.value))
-                                      ]))
-                                  .toList())
-                        ],
-                      );
-                    } else if (state is Loading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return const Center(
-                        child: Text("Unexpected State"),
-                      );
-                    }
-                  },
+        child: GestureDetector(
+          onPanStart: (details){
+            _initializeBloc.add(LoadUserInfoEvent());
+          },
+          child: SingleChildScrollView(
+            child: SizedBox(
+                width: double.infinity,
+                child: BlocProvider(
+                  create: (context) => _initializeBloc,
+                  child: BlocBuilder<InitializeBloc, InitializeState>(
+                    builder: (context, state) {
+                      if (state is Registered) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image(
+                              image:
+                                  Image.asset('assets/images/profile.png').image,
+                              width: 100,
+                              height: 100,
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  state.userInfo["Name"]!,
+                                  style: const TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                )),
+                            Table(
+                                children: state.userInfo.entries
+                                    .map((e) => TableRow(children: [
+                                          Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Text(e.key,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold))),
+                                          Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Text(e.value))
+                                        ]))
+                                    .toList())
+                          ],
+                        );
+                      } else if (state is Loading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Unexpected State"),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
-            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
