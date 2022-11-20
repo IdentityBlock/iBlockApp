@@ -48,11 +48,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                   builder: (context, state) {
                     if (state is Initial || state is Loading) {
-                      return const Center(
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: CircularProgressIndicator(),
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height *0.7,
+                        child: const Center(
+                          child:  CircularProgressIndicator()
                         ),
                       );
                     } else if (state is Loaded) {
